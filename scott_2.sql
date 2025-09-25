@@ -1,0 +1,319 @@
+SELECT *
+FROM tab;
+
+SELECT SYSDATE, TO_CHAR(SYSDATE, 'RRRR/MM/DD') AS "system"
+      ,TO_CHAR(12345.6, '$099,999.99') AS "num"
+FROM dual;
+
+SELECT empno
+      ,ename
+      ,job
+      ,TO_CHAR(sal, '999,999') AS "salary"
+FROM emp;
+
+SELECT *
+FROM professor
+WHERE hiredate >= TO_DATE('1990/01/01 09:00:00', 'RRRR/MM/DD HH24:MI:SS')
+AND hiredate < TO_DATE('2000/01/01 00:00:00', 'RRRR/MM/DD HH24:MI:SS');
+
+SELECT *
+FROM emp
+WHERE sal + NVL(comm, 0) >= 2000;
+
+-- NVL 함수 퀴즈 p.112
+SELECT profno
+      ,name
+      ,pay
+      ,NVL(bonus, 0)
+      ,(pay * 12 + NVL(bonus, 0)) AS "TOTAL"
+FROM professor
+WHERE deptno = 201;
+
+SELECT profno
+      ,name
+      ,NVL2(bonus, (pay*12)+bonus, (pay*12)) AS "total"
+FROM professor;
+
+-- NVL2 함수 퀴즈 p.113
+SELECT empno
+      ,ename
+      ,comm
+      ,NVL2(comm, 'Exist', 'NULL') AS "NVL2"
+FROM emp
+WHERE deptno = 30;
+
+-- sal > 30 ? '값' : '값2'
+SELECT empno
+      ,ename
+      ,DECODE(job, 'SALESMAN', '영업부서', DECODE(job, 'MANAGER', '관리부서', '기타부서')) AS "dept"
+      ,job
+FROM emp;
+
+-- DECODE 퀴즈 1
+SELECT name
+      ,jumin
+      ,DECODE(SUBSTR(jumin, 7, 1), 1, 'MAN', 2, 'WOMAN') AS "Gender"
+FROM student
+WHERE deptno1= 101;
+
+-- DECODE 퀴즈 2
+SELECT name
+      ,tel
+      ,DECODE(SUBSTR(tel, 1, INSTR(tel, ')')-1), '02', 'SEOUL'
+                                               , '031', 'GYEONGGI'
+                                               , '051', 'BUSAN'
+                                               , '052', 'ULSAN'              
+                                               , '055', 'GYEONGNAM'
+      )  AS "LOC"
+FROM student
+WHERE deptno1 = 101;
+
+SELECT name
+      ,tel
+      ,CASE SUBSTR(tel, 1, INSTR(tel, ')')-1) WHEN '02' THEN 'SEOUL'
+                                              WHEN '031' THEN 'GYEONGGI'
+                                              WHEN '051' THEN 'BUSAN'
+                                              WHEN '052' THEN 'ULSAN'
+                                              WHEN '055' THEN 'GYEONGNAM'
+                                                         ELSE '기타'
+      END AS "LOC"
+FROM student
+WHERE deptno1 = 101;
+
+SELECT profno
+      ,name
+      ,position
+      ,pay*12 AS "pay"
+      ,CASE WHEN pay*12 > 5000 THEN 'High'
+            WHEN pay*12 > 4000 THEN 'Mid'
+            WHEN pay*12 > 3000 THEN 'Low'
+                               ELSE 'Etc'
+      END AS "Sal"
+FROM professor
+WHERE CASE WHEN pay*12 > 5000 THEN 'High'
+           WHEN pay*12 > 4000 THEN 'Mid'
+           WHEN pay*12 > 3000 THEN 'Low'
+                              ELSE 'Etc'
+      END = 'High';
+      
+-- CASE문 퀴즈 p.123
+SELECT empno
+      ,ename
+      ,sal
+      ,CASE WHEN sal BETWEEN 1 AND 1000 THEN 'LEVEL 1'
+            WHEN sal BETWEEN 1001 AND 2000 THEN 'LEVEL 2'
+            WHEN sal BETWEEN 2001 AND 3000 THEN 'LEVEL 3'
+            WHEN sal BETWEEN 3001 AND 4000 THEN 'LEVEL 4'
+            WHEN 4001<=sal THEN 'LEVEL 5'
+      END AS "LEVEL"
+FROM emp
+ORDER BY sal DESC;
+
+SELECT *
+FROM department;
+
+SELECT profno
+      ,name
+      ,'Professon'
+      ,pay
+FROM professor
+WHERE deptno = 101
+UNION
+SELECT studno
+      ,name
+      ,'Student'
+      ,0
+FROM student
+WHERE deptno1 = 101;
+
+SELECT MIN(job)
+      ,COUNT(*) AS "인원"
+      ,SUM(sal) AS "직무 급여 합계"
+      ,AVG(sal) AS "급여평균"
+      ,STDDEV(sal) AS "표준편차"
+      ,VARIANCE(sal) AS "분산"
+FROM emp
+GROUP BY job;
+
+SELECT TO_CHAR(hiredate, 'RRRR') AS "HD"
+      ,COUNT(*) AS "인원"
+FROM emp
+GROUP BY TO_CHAR(hiredate, 'RRRR');
+
+-- 학생, 학과별 인원.
+SELECT deptno1
+      ,COUNT(*) AS "인원"
+FROM student
+GROUP BY deptno1
+HAVING COUNT(*) > 2;
+
+-- 교수, position, pay합계, 최고급여, 최저급여 출력
+SELECT position
+      ,SUM(pay) AS "급여합계"
+      ,MAX(pay) AS "최고급여"
+      ,MIN(pay) AS "최저급여"
+FROM professor
+GROUP BY position;
+
+-- 사원, 부서별 평균급여, 인원.
+-- 사원, 부서, 직무별 평균급여, 인원
+-- 사원, 평균급여, 인원.
+
+SELECT deptno
+      ,NULL
+      ,ROUND(AVG(sal)) AS "평균급여"
+      ,COUNT(*) AS "인원"
+      ,'a'
+FROM emp
+GROUP BY deptno
+UNION
+SELECT deptno
+      ,job
+      ,ROUND(AVG(sal)) AS "평균급여"
+      ,COUNT(*) AS "인원"
+      ,'b'
+FROM emp
+GROUP BY deptno, job
+UNION
+SELECT NULL
+      ,NULL
+      ,ROUND(AVG(sal)) AS "평균급여"
+      ,COUNT(*) AS "인원"
+      ,'c'
+FROM emp
+ORDER BY 1, 2;
+
+SELECT DECODE(NVL(deptno, 999), 999, '전체', deptno) AS "부서"
+      ,NVL(job, '합계') AS "직무"
+      ,ROUND(AVG(sal)) AS "평균급여"
+      ,COUNT(*) AS "사원수"
+FROM emp
+GROUP BY ROLLUP(deptno, job)
+ORDER BY 1, 2;
+
+SELECT DECODE(NVL(deptno, 999), 999, '전체', deptno) AS "부서"
+      ,NVL(job, '합계') AS "직무"
+      ,ROUND(AVG(sal)) AS "평균급여"
+      ,COUNT(*) AS "사원수"
+FROM emp
+GROUP BY CUBE(deptno, job)
+ORDER BY 1, 2;
+
+SELECT COUNT(*) -- 12건.
+FROM emp;
+SELECT COUNT(*) -- 4건.
+FROM dept;
+
+SELECT COUNT(*) --dept.*, emp.*
+FROM emp, dept;
+
+SELECT studno
+      ,s.name AS "학생명"
+      ,s.grade
+      ,p.name AS "교수명"
+      ,s.deptno1
+      ,d.dname AS "학과명"
+FROM student s -- 교수번호
+LEFT OUTER JOIN professor p
+ON s.profno = p.profno
+JOIN department d
+ON s.deptno1 = d.deptno;
+
+SELECT p.profno
+      ,p.name
+      ,s.studno
+      ,s.name
+      ,s.profno AS "담당교수"
+FROM professor p
+LEFT OUTER JOIN student s
+ON p.profno = s.profno;
+
+SELECT *
+FROM student;
+
+SELECT *
+FROM salgrade;
+
+SELECT s.grade
+      ,e.*
+FROM emp e
+JOIN salgrade s
+ON e.sal >= s.losal
+AND e.sal <= s.hisal
+WHERE s.grade = 2;
+
+-- oracle join.
+SELECT e.*
+      ,d.*
+FROM emp e, dept d
+WHERE e.deptno = d.deptno;
+
+SELECT e1.empno AS "사원번호"
+      ,e1.ename AS "사원명"
+      ,e2.empno AS "관리자번호"
+      ,e2.ename AS "관리자명"
+FROM emp e1, emp e2
+WHERE e1.mgr = e2.empno(+);
+
+-- 연습문제 1 p.254
+SELECT s.name AS "STU_NAME"
+      ,s.deptno1
+      ,d.dname AS "DEPT_NAME"
+FROM student s
+JOIN department d
+ON S.deptno1 = d.deptno;
+
+-- 연습문제 2 p.254
+SELECT e.name
+      ,e.position
+      ,TO_CHAR(e.pay, '99,999,999') AS "PAY"
+      ,TO_CHAR(p.s_pay, '99,999,999') AS "Low Pay"
+      ,TO_CHAR(p.e_pay, '99,999,999') AS "High Pay"
+FROM emp2 e
+JOIN p_grade p
+ON e.position = p.position;
+
+-- 연습문제 3 p.255
+SELECT e.name
+      ,TRUNC(MONTHS_BETWEEN('2013/09/25', e.birthday)/12) AS "AGE"
+      ,e.position AS "CURR_POSITION"
+      ,p.position AS "BE_POSITION"
+FROM emp2 e
+LEFT OUTER JOIN p_grade p
+ON TRUNC(MONTHS_BETWEEN('2013/09/25', e.birthday)/12) >= p.s_age
+AND TRUNC(MONTHS_BETWEEN('2013/09/25', e.birthday)/12) <= p.e_age
+ORDER BY 2;
+
+-- 연습문제 4 p.255
+SELECT c.gname AS "CUST_NAME"
+      ,c.point
+      ,g.gname AS "GIFT_NAME"
+FROM customer c
+JOIN gift g
+ON c.point BETWEEN g.start AND g.end
+AND g.gname = 'Notebook';
+
+SELECT *
+FROM gift;
+
+-- 연습문제 5 p.256
+SELECT p1.profno
+      ,p1.name
+--      ,TO_CHAR(p1.hiredate, 'RRRR/MM/DD') AS "HIREDATE"
+--      ,COUNT(TO_CHAR(p1.hiredate, 'RRRR/MM/DD') > TO_CHAR(p2.hiredate, 'RRRR/MM/DD'))
+FROM professor p1
+JOIN professor p2
+ON p1.;
+
+SELECT *
+FROM professor;
+
+SELECT *
+FROM gift;
+
+
+SELECT *
+FROM p_grade;
+
+SELECT *
+FROM emp2;
