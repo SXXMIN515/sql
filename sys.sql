@@ -20,3 +20,4 @@ SELECT *
 FROM dba_users
 WHERE username = 'SCOTT';
 
+SELECT username, COUNT(*) FROM v$session GROUP BY username;

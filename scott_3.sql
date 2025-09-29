@@ -13,9 +13,9 @@ CREATE TABLE new_emp(
 );
 
 CREATE TABLE new_table (
-  no NUMBER(3) PRIMARY KEY, -- 회원번호 1 ~ 999
-  name VARCHAR2(100) NOT NULL, -- 이름 hongkildon
-  birth DATE DEFAULT SYSDATE -- 생년월일 TO_DATE('2020-01-01', 'RRRR-MM-DD')
+  no NUMBER(3) PRIMARY KEY, -- ?��?��번호 1 ~ 999
+  name VARCHAR2(100) NOT NULL, -- ?���? hongkildon
+  birth DATE DEFAULT SYSDATE -- ?��?��?��?�� TO_DATE('2020-01-01', 'RRRR-MM-DD')
 );
 
 ALTER TABLE new_table ADD phone VARCHAR2(20);
@@ -26,19 +26,19 @@ SELECT *
 FROM new_table;
 ALTER TABLE new_table ADD info GENERATED always AS (no || '-' || name);
 
-ALTER TABLE new_table RENAME COLUMN phone TO tel; -- 컬럼명 수정
-ALTER TABLE new_table MODIFY tel VARCHAR2(30); -- 데이터 타입 수정
-ALTER TABLE new_table DROP COLUMN tel; -- 컬럼 삭제
+ALTER TABLE new_table RENAME COLUMN phone TO tel; -- 컬럼�? ?��?��
+ALTER TABLE new_table MODIFY tel VARCHAR2(30); -- ?��?��?�� ???�� ?��?��
+ALTER TABLE new_table DROP COLUMN tel; -- 컬럼 ?��?��
 
--- 추가
+-- 추�?
 INSERT INTO new_table (no, name)
-VALUES(1, '홍길동');
+VALUES(1, '?��길동');
 INSERT INTO new_table (no, name, birth)
-VALUES(2, '홍길동', '2001-01-01');
-INSERT INTO new_table (no, name, birth) -- read only로 바꾼 후 추가 불가능 
-VALUES(3, '홍길동', '2001-01-01');
+VALUES(2, '?��길동', '2001-01-01');
+INSERT INTO new_table (no, name, birth) -- read only�? 바꾼 ?�� 추�? 불�??�� 
+VALUES(3, '?��길동', '2001-01-01');
 
--- 수정
+-- ?��?��
 UPDATE new_table
 SET phone = '010-1111-1111'
 WHERE no = 1;
@@ -49,8 +49,8 @@ WHERE no = 2;
 
 DESC new_table;
 
-TRUNCATE TABLE new_table; -- 데이터 삭제
-DROP TABLE new_table purge; -- 테이블 삭제 purge 바로 삭제 휴지통 X
+TRUNCATE TABLE new_table; -- ?��?��?�� ?��?��
+DROP TABLE new_table purge; -- ?��?���? ?��?�� purge 바로 ?��?�� ?���??�� X
 SELECT *
 FROM user_recyclebin; 
 FLASHBACK TABLE new_table TO BEFORE DROP; -- 복구
@@ -86,7 +86,7 @@ SELECT * FROM professor; -- ITAS
 SELECT *
 FROM professor3;
 
-CREATE TABLE prof_1 ( -- 테이블은 자동 COMMIT.
+CREATE TABLE prof_1 ( -- ?��?��블�? ?��?�� COMMIT.
  profno NUMBER,
  name VARCHAR2(25)
 );
@@ -118,15 +118,15 @@ FROM professor;
 UPDATE professor
 SET    bonus = DECODE(bonus, NULL, 100, bonus),
        pay = pay + (pay * 0.1),
-       -- hpage를 이메일 도메인 주소를 회사의 홈페이지로 변경.
+       -- hpage�? ?��메일 ?��메인 주소�? ?��?��?�� ?��?��?���?�? �?�?.
        hpage = DECODE(hpage, NULL, 'http://www.' || SUBSTR(email, INSTR(email, '@')+1), hpage)
 WHERE 1 = 1;
 
--- 삭제
+-- ?��?��
 DELETE FROM professor
 WHERE hpage IS NOT NULL;
 
--- dept 삭제.
+-- dept ?��?��.
 SELECT * FROM dept;
 
 DELETE FROM dept
@@ -158,25 +158,25 @@ WHERE EXISTS (SELECT 1
               WHERE e.deptno = d.deptno
               AND d.loc = 'DALLAS');
               
--- 개인 프로젝트
--- 게시판, 회원관리, 상품관리 ->               
--- 오라클서버 --- 웹서버(노드) --- 클라이언트(fetch)
+-- 개인 ?��로젝?��
+-- 게시?��, ?��?���?�?, ?��?���?�? ->               
+-- ?��?��?��?���? --- ?��?���?(?��?��) --- ?��?��?��?��?��(fetch)
 SELECT *
 FROM emp
 ORDER BY hiredate;            
 
--- sal => 1000 변경. 테이블: emp
+-- sal => 1000 �?�?. ?��?���?: emp
 UPDATE emp
 SET sal = 1000
 WHERE sal < 1000;
 
--- SALESMAN직무 -> comm 500미만인 사원 => 500 변경.
+-- SALESMAN직무 -> comm 500미만?�� ?��?�� => 500 �?�?.
 UPDATE emp
 SET comm = 500
 WHERE job = 'SALESMAN'
 AND comm < 500;
 
--- 1981년 전반기에 입사한 사원(1~6월) => 10% 인상.
+-- 1981?�� ?��반기?�� ?��?��?�� ?��?��(1~6?��) => 10% ?��?��.
 UPDATE emp
 SET sal = sal*1.1
 WHERE hiredate < TO_DATE('1981/07', 'RRRR/MM')
@@ -198,7 +198,7 @@ order by height desc;
 
 SELECT *
 FROM department;
--- Rene Russo 학생의 담당교수의 번호, 이름, position 확인.
+-- Rene Russo ?��?��?�� ?��?��교수?�� 번호, ?���?, position ?��?��.
 SELECT p.profno
       ,p.name
       ,p.position
@@ -207,7 +207,7 @@ JOIN student s
 ON s.profno = p.profno
 WHERE s.name = 'Rene Russo';
 
--- 전공(전공1, 전공2): 'Computer Engineering' => 학생들의 학번, 이름을 확인.
+-- ?���?(?���?1, ?���?2): 'Computer Engineering' => ?��?��?��?�� ?���?, ?��름을 ?��?��.
 SELECT s.studno
       ,s.name
 FROM student s
@@ -216,8 +216,8 @@ ON s.deptno1 = d.deptno
 OR s.deptno2 = d.deptno
 WHERE d.dname = 'Computer Engineering';
 
--- 학생중에 전공1 'Computer Engineering' 학생들의 담당교수의
--- 교수번호, 이름, position 확인.
+-- ?��?��중에 ?���?1 'Computer Engineering' ?��?��?��?�� ?��?��교수?��
+-- 교수번호, ?���?, position ?��?��.
 SELECT DISTINCT p.profno
       ,p.name
       ,p.position
@@ -228,14 +228,14 @@ JOIN department d
 ON s.deptno1 = d.deptno
 WHERE d.dname = 'Computer Engineering';
 
--- 학생중에 담당교수의 position = 'assistant professor' 인 학생 확인
+-- ?��?��중에 ?��?��교수?�� position = 'assistant professor' ?�� ?��?�� ?��?��
 SELECT s.*
 FROM student s
 JOIN professor p
 ON s.profno = p.profno
 WHERE p.position = 'assistant professor';
 
--- 학생전공 'Computer Engineering' 몸무게의 평균보다 큰 학생 확인.
+-- ?��?��?���? 'Computer Engineering' 몸무게의 ?��균보?�� ?�� ?��?�� ?��?��.
 SELECT *
 FROM student ss
 WHERE ss.weight > (SELECT AVG(weight)
@@ -244,7 +244,7 @@ WHERE ss.weight > (SELECT AVG(weight)
                    ON s.deptno1 = d.deptno
                    WHERE d.dname = 'Computer Engineering');
                    
--- 전공: Electronic Engineering 학생들의 담당교수.
+-- ?���?: Electronic Engineering ?��?��?��?�� ?��?��교수.
 SELECT *
 FROM professor pp
 WHERE pp.profno IN (SELECT p.profno 
@@ -258,14 +258,14 @@ WHERE pp.profno IN (SELECT p.profno
 SELECT *
 FROM professor
 ORDER BY pay ;
--- 담당교수 급여(pay)의 평균 이상 급여를 받는 교수번호, 이름 확인.
+-- ?��?��교수 급여(pay)?�� ?���? ?��?�� 급여�? 받는 교수번호, ?���? ?��?��.
 SELECT profno
       ,name
 FROM professor 
 WHERE pay > (SELECT AVG(pay)
              FROM professor);
              
--- 보너스를 못받는 사람중에 입사일이 가장 빠른 사람보다 입사일이 빠른 사람 확인.
+-- 보너?���? 못받?�� ?��?��중에 ?��?��?��?�� �??�� 빠른 ?��?��보다 ?��?��?��?�� 빠른 ?��?�� ?��?��.
 SELECT *
 FROM professor
 WHERE hiredate < (SELECT MIN(hiredate)
@@ -273,7 +273,7 @@ WHERE hiredate < (SELECT MIN(hiredate)
                   WHERE bonus IS NULL)
 ORDER BY hiredate;
 
--- 보너스를 못받는 사람보다 월급이 적은 사람 월급 10% 인상.
+-- 보너?���? 못받?�� ?��?��보다 ?��급이 ?��?? ?��?�� ?���? 10% ?��?��.
 UPDATE professor
 SET pay = pay*1.1
 WHERE bonus IS NOT NULL
@@ -318,7 +318,7 @@ JOIN department d
 ON v.deptno = d.deptno
 WHERE position = 'a full professor';
 
--- 학생, 담당교수 뷰.
+-- ?��?��, ?��?��교수 �?.
 CREATE OR REPLACE VIEW stud_prof_v
 AS
 SELECT s.studno
@@ -351,13 +351,13 @@ FROM board_t;
 
 SELECT MAX(board_no)+1 FROM board_t;
 
--- 시퀀스 사용
+-- ?��???�� ?��?��
 CREATE SEQUENCE board_t_seq
 INCREMENT BY 1
 START WITH 1
 MAXVALUE 9999999999999
 MINVALUE 1
-CYCLE -- MAX 넘으면 1부터 다시 시작
+CYCLE -- MAX ?��?���? 1�??�� ?��?�� ?��?��
 ;
 
 DROP SEQUENCE board_t_seq;
@@ -366,18 +366,18 @@ SELECT board_t_seq.nextval FROM dual;
 DELETE FROM board_t
 WHERE board_no =1;
 
--- 1, 게시판글연습, 게시판이잘되는지 연습합니다, 홍길동
+-- 1, 게시?���??��?��, 게시?��?��?��?��?���? ?��?��?��?��?��, ?��길동
 INSERT INTO board_t (board_no, title, content ,writer)
-VALUES (board_t_seq.nextval, '게시판글연습', '게시판이 잘되는지 연습합니다', '홍길동');
+VALUES (board_t_seq.nextval, '게시?���??��?��', '게시?��?�� ?��?��?���? ?��?��?��?��?��', '?��길동');
 -- 2
 INSERT INTO board_t (board_no, title, content ,writer)
-VALUES (board_t_seq.nextval, '두더지게시판', '두더지는 무섭습니다', '김길동');
+VALUES (board_t_seq.nextval, '?��?���?게시?��', '?��?���??�� 무섭?��?��?��', '�?길동');
 -- 3
 INSERT INTO board_t (board_no, title, content ,writer)
-VALUES (board_t_seq.nextval, 'sql재밌네', 'sql중에 join은 어렵지만 재밌네요.', '박석민');
+VALUES (board_t_seq.nextval, 'sql?��밌네', 'sql중에 join?? ?��?���?�? ?��밌네?��.', '박석�?');
 -- 4
 INSERT INTO board_t (board_no, title, content ,writer)
-VALUES (board_t_seq.nextval, '삭제는 어떻게 해요', 'delete from 테이블 where 조건절', '김민수');
+VALUES (board_t_seq.nextval, '?��?��?�� ?��?���? ?��?��', 'delete from ?��?���? where 조건?��', '�?민수');
 
 SELECT *
 FROM board_t
