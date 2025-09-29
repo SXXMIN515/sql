@@ -162,4 +162,95 @@ WHERE EXISTS (SELECT 1
 -- 게시판, 회원관리, 상품관리 ->               
 -- 오라클서버 --- 웹서버(노드) --- 클라이언트(fetch)
 SELECT *
-FROM emp;            
+FROM emp
+ORDER BY hiredate;            
+
+-- sal => 1000 변경. 테이블: emp
+UPDATE emp
+SET sal = 1000
+WHERE sal < 1000;
+
+-- SALESMAN직무 -> comm 500미만인 사원 => 500 변경.
+UPDATE emp
+SET comm = 500
+WHERE job = 'SALESMAN'
+AND comm < 500;
+
+-- 1981년 전반기에 입사한 사원(1~6월) => 10% 인상.
+UPDATE emp
+SET sal = sal*1.1
+WHERE hiredate < TO_DATE('1981/07', 'RRRR/MM')
+AND hiredate >= TO_DATE('1981/01', 'RRRR/MM');
+
+
+SELECT DISTINCT position
+FROM professor;
+
+SELECT *
+FROM professor;
+
+SELECT *
+FROM student;
+
+SELECT distinct height
+FROM student
+order by height desc;
+
+SELECT *
+FROM department;
+-- Rene Russo 학생의 담당교수의 번호, 이름, position 확인.
+SELECT p.profno
+      ,p.name
+      ,p.position
+FROM professor p
+JOIN student s
+ON s.profno = p.profno
+WHERE s.name = 'Rene Russo';
+
+-- 전공(전공1, 전공2): 'Computer Engineering' => 학생들의 학번, 이름을 확인.
+SELECT s.studno
+      ,s.name
+FROM student s
+JOIN department d
+ON s.deptno1 = d.deptno
+OR s.deptno2 = d.deptno
+WHERE d.dname = 'Computer Engineering';
+
+-- 학생중에 전공1 'Computer Engineering' 학생들의 담당교수의
+-- 교수번호, 이름, position 확인.
+SELECT DISTINCT p.profno
+      ,p.name
+      ,p.position
+FROM professor p
+JOIN student s
+ON s.profno = p.profno
+JOIN department d
+ON s.deptno1 = d.deptno
+WHERE d.dname = 'Computer Engineering';
+
+-- 학생중에 담당교수의 position = 'assistant professor' 인 학생 확인
+SELECT s.*
+FROM student s
+JOIN professor p
+ON s.profno = p.profno
+WHERE p.position = 'assistant professor';
+
+-- 학생전공 'Computer Engineering' 몸무게의 평균보다 큰 학생 확인.
+SELECT *
+FROM student ss
+WHERE ss.weight > (SELECT AVG(weight)
+                   FROM student s
+                   JOIN department d
+                   ON s.deptno1 = d.deptno
+                   WHERE d.dname = 'Computer Engineering');
+                   
+-- 전공: Electronic Engineering 학생들의 담당교수.
+SELECT *
+FROM professor pp
+WHERE pp.profno IN (SELECT p.profno 
+                    FROM professor p
+                    JOIN student s
+                    ON p.profno = s.profno
+                    JOIN department d
+                    ON s.deptno1 = d.deptno
+                    WHERE d.dname = 'Electronic Engineering');                   
