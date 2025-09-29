@@ -11,6 +11,8 @@ temporary tablespace temp;
 GRANT CONNECT, RESOURCE, UNLIMITED TABLESPACE
 TO scott;
 
+GRANT CREATE VIEW TO scott;
+
 SELECT *
 FROM tab;
 
@@ -18,4 +20,3 @@ SELECT *
 FROM dba_users
 WHERE username = 'SCOTT';
 
-ALTER 

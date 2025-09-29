@@ -253,4 +253,138 @@ WHERE pp.profno IN (SELECT p.profno
                     ON p.profno = s.profno
                     JOIN department d
                     ON s.deptno1 = d.deptno
-                    WHERE d.dname = 'Electronic Engineering');                   
+                    WHERE d.dname = 'Electronic Engineering');  
+
+SELECT *
+FROM professor
+ORDER BY pay ;
+-- 담당교수 급여(pay)의 평균 이상 급여를 받는 교수번호, 이름 확인.
+SELECT profno
+      ,name
+FROM professor 
+WHERE pay > (SELECT AVG(pay)
+             FROM professor);
+             
+-- 보너스를 못받는 사람중에 입사일이 가장 빠른 사람보다 입사일이 빠른 사람 확인.
+SELECT *
+FROM professor
+WHERE hiredate < (SELECT MIN(hiredate)
+                  FROM professor
+                  WHERE bonus IS NULL)
+ORDER BY hiredate;
+
+-- 보너스를 못받는 사람보다 월급이 적은 사람 월급 10% 인상.
+UPDATE professor
+SET pay = pay*1.1
+WHERE bonus IS NOT NULL
+AND pay < (SELECT MAX(pay)
+                  FROM professor
+                  WHERE bonus IS NULL);
+                  
+SELECT *
+FROM dept;
+
+SELECT *
+FROM emp;
+
+-- view
+CREATE OR REPLACE VIEW emp_dept_v
+AS
+SELECT empno, ename, job, sal, e.deptno, dname, comm
+FROM emp e
+JOIN dept d
+ON e.deptno = d.deptno;
+
+SELECT *
+FROM emp_dept_v;
+
+CREATE OR REPLACE VIEW emp_v
+AS
+SELECT empno, ename, job, deptno
+FROM emp;
+
+UPDATE emp_v
+SET ename = ''
+   ,deptno = ''
+WHERE empno = '9999';
+
+SELECT * FROM emp_v;
+
+SELECT * FROM tab;
+
+SELECT v.*, d.dname
+FROM stud_prof_v v
+JOIN department d
+ON v.deptno = d.deptno
+WHERE position = 'a full professor';
+
+-- 학생, 담당교수 뷰.
+CREATE OR REPLACE VIEW stud_prof_v
+AS
+SELECT s.studno
+      ,s.name studname
+      ,s.birthday
+      ,s.tel
+      ,s.deptno1 deptno
+      ,p.profno
+      ,p.name profname
+      ,position
+      ,p.email
+FROM student s
+LEFT OUTER JOIN professor p
+ON s.profno = p.profno;
+
+SELECT *
+FROM stud_prof_v;
+  
+CREATE TABLE board_t (
+  board_no NUMBER(5) PRIMARY KEY,
+  title VARCHAR2(100) NOT NULL,
+  content VARCHAR2(1000) NOT NULL,
+  writer VARCHAR2(50) NOT NULL,
+  write_date DATE DEFAULT SYSDATE,
+  likes NUMBER(3) DEFAULT 0
+);
+
+SELECT *
+FROM board_t;
+
+SELECT MAX(board_no)+1 FROM board_t;
+
+-- 시퀀스 사용
+CREATE SEQUENCE board_t_seq
+INCREMENT BY 1
+START WITH 1
+MAXVALUE 9999999999999
+MINVALUE 1
+CYCLE -- MAX 넘으면 1부터 다시 시작
+;
+
+DROP SEQUENCE board_t_seq;
+SELECT board_t_seq.nextval FROM dual;
+
+DELETE FROM board_t
+WHERE board_no =1;
+
+-- 1, 게시판글연습, 게시판이잘되는지 연습합니다, 홍길동
+INSERT INTO board_t (board_no, title, content ,writer)
+VALUES (board_t_seq.nextval, '게시판글연습', '게시판이 잘되는지 연습합니다', '홍길동');
+-- 2
+INSERT INTO board_t (board_no, title, content ,writer)
+VALUES (board_t_seq.nextval, '두더지게시판', '두더지는 무섭습니다', '김길동');
+-- 3
+INSERT INTO board_t (board_no, title, content ,writer)
+VALUES (board_t_seq.nextval, 'sql재밌네', 'sql중에 join은 어렵지만 재밌네요.', '박석민');
+-- 4
+INSERT INTO board_t (board_no, title, content ,writer)
+VALUES (board_t_seq.nextval, '삭제는 어떻게 해요', 'delete from 테이블 where 조건절', '김민수');
+
+SELECT *
+FROM board_t
+ORDER BY board_no;
+
+INSERT INTO board_t (board_no, title, content, writer)
+SELECT board_t_seq.nextval, title, content, writer
+FROM board_t;
+
+ALTER TABLE board_t MODIFY board_no NUMBER(10);
