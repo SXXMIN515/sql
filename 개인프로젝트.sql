@@ -99,7 +99,7 @@ CREATE TABLE locker (
 );
 
 --입퇴실테이블(입퇴실날짜(default sysdate), 회원번호, 입실시간, 퇴실시간)
-CREATE TABLE member_access_log(
+CREATE TABLE attendance(
   access_date DATE DEFAULT SYSDATE,
   member_no NUMBER(6, 0),
   check_in_time DATE,
