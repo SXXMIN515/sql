@@ -4,7 +4,7 @@ order by username;
 
 alter session set "_ORACLE_SCRIPT"=true;
 
--- scott ê³„ì •ìƒì„±
+-- scott ê³„ì •?ƒ?„±
 create user scott
 identified by tiger
 default tablespace users
@@ -15,7 +15,7 @@ TO scott;
 
 GRANT CREATE VIEW TO scott;
 
--- hrê³„ì • ìƒì„±
+-- hrê³„ì • ?ƒ?„±
 create user hr
 identified by hr
 default tablespace users
@@ -32,3 +32,6 @@ FROM dba_users
 WHERE username = 'SCOTT';
 
 SELECT username, COUNT(*) FROM v$session GROUP BY username;
+
+SELECT * FROM v$version;
+

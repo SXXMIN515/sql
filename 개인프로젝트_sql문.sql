@@ -1,5 +1,6 @@
 SELECT *
-FROM class;
+FROM class
+ORDER BY class_id;
 
 SELECT *
 FROM enrollment;
@@ -25,7 +26,7 @@ GROUP BY c.class_id
         ,c.start_date
         ,c.end_date
         ,c.class_capacity
-ORDER BY c.start_date; -- 최신 등록 순
+ORDER BY c.class_id; -- 최신 등록 순
 --ORDER BY c.end_date; -- 마감 빠른 순
 --ORDER BY c.start_date; -- 시작일 순
 
