@@ -5,7 +5,7 @@ ORDER BY class_id;
 SELECT *
 FROM enrollment;
 
--- ¼ö¾÷ ¸ñ·Ï Ãâ·Â
+-- ìˆ˜ì—… ëª©ë¡ ì¶œë ¥
 SELECT c.class_id
       ,c.category
       ,c.class_name
@@ -26,9 +26,9 @@ GROUP BY c.class_id
         ,c.start_date
         ,c.end_date
         ,c.class_capacity
-ORDER BY c.class_id; -- ÃÖ½Å µî·Ï ¼ø
---ORDER BY c.end_date; -- ¸¶°¨ ºü¸¥ ¼ø
---ORDER BY c.start_date; -- ½ÃÀÛÀÏ ¼ø
+ORDER BY c.class_id DESC; -- ìµœì‹  ë“±ë¡ ìˆœ
+--ORDER BY c.registration_end ASC; -- ë§ˆê° ë¹ ë¥¸ ìˆœ
+--ORDER BY c.start_date ASC; -- ì‹œì‘ì¼ ë¹ ë¥¸ ìˆœ
 
 SELECT *
 FROM member;
