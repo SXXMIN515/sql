@@ -1,7 +1,7 @@
---íšŒì›ê´€ë¦¬(í—¬ìŠ¤ì¥)
+--?šŒ?›ê´?ë¦?(?—¬?Š¤?¥)
 
---íšŒì›í…Œì´ë¸”
---íšŒì›ì•„ì´ë””(ì‹œí€€ìŠ¤)
+--?šŒ?›?…Œ?´ë¸?
+--?šŒ?›?•„?´?””(?‹œ???Š¤)
 DROP SEQUENCE member_id_seq;
 CREATE SEQUENCE member_id_seq
   INCREMENT BY 1
@@ -12,53 +12,49 @@ CREATE SEQUENCE member_id_seq
 
 DROP TABLE member CASCADE CONSTRAINTS purge;
 CREATE TABLE member (
-  member_id NUMBER(6, 0) CONSTRAINT member_merber_id_pk PRIMARY KEY, --íšŒì›ì•„ì´ë””(pk, seq)
-  login_id VARCHAR2(15) NOT NULL, --ì•„ì´ë””(not null)
-  login_pw VARCHAR2(15) NOT NULL, --ë¹„ë°€ë²ˆí˜¸(not null)
-  member_name VARCHAR2(20) NOT NULL, --ì´ë¦„(not null)
-  birth DATE NOT NULL, --ìƒë…„ì›”ì¼(not null)
-  tel VARCHAR2(20) NOT NULL, --íœ´ëŒ€í°ë²ˆí˜¸(not null)
+  member_id NUMBER(6, 0) CONSTRAINT member_merber_id_pk PRIMARY KEY, --?šŒ?›?•„?´?””(pk, seq)
+  login_id VARCHAR2(15) NOT NULL, --?•„?´?””(not null)
+  login_pw VARCHAR2(15) NOT NULL, --ë¹„ë?ë²ˆí˜¸(not null)
+  member_name VARCHAR2(20) NOT NULL, --?´ë¦?(not null)
+  birth DATE NOT NULL, --?ƒ?…„?›”?¼(not null)
+  tel VARCHAR2(20) NOT NULL, --?œ´???°ë²ˆí˜¸(not null)
   join_date DATE DEFAULT SYSDATE
 );
 
--- ìƒ˜í”Œë°ì´í„°
+-- ?ƒ˜?”Œ?°?´?„°
 INSERT INTO member (member_id, login_id, login_pw, member_name, birth, tel, join_date)
-VALUES (member_id_seq.NEXTVAL, 'user01', 'pw01', 'í™ê¸¸ë™', TO_DATE('1990-01-15','YYYY-MM-DD'), '010-1111-1111', SYSDATE);
-
-INSERT INTO member (member_id, login_id, login_pw, member_name, birth, tel, join_date)
-VALUES (member_id_seq.NEXTVAL, 'user02', 'pw02', 'ê¹€ì² ìˆ˜', TO_DATE('1988-05-20','YYYY-MM-DD'), '010-2222-2222', SYSDATE);
+VALUES (member_id_seq.NEXTVAL, 'user01', 'pw01', 'È«±æµ¿', TO_DATE('1990-01-15','YYYY-MM-DD'), '010-1111-1111', SYSDATE);
 
 INSERT INTO member (member_id, login_id, login_pw, member_name, birth, tel, join_date)
-VALUES (member_id_seq.NEXTVAL, 'user03', 'pw03', 'ì´ì˜í¬', TO_DATE('1992-11-03','YYYY-MM-DD'), '010-3333-3333', SYSDATE);
+VALUES (member_id_seq.NEXTVAL, 'user02', 'pw02', '±èÃ¶¼ö', TO_DATE('1988-05-20','YYYY-MM-DD'), '010-2222-2222', SYSDATE);
 
 INSERT INTO member (member_id, login_id, login_pw, member_name, birth, tel, join_date)
-VALUES (member_id_seq.NEXTVAL, 'user04', 'pw04', 'ë°•ë¯¼ìˆ˜', TO_DATE('1995-07-08','YYYY-MM-DD'), '010-4444-4444', SYSDATE);
+VALUES (member_id_seq.NEXTVAL, 'user03', 'pw03', 'ÀÌ¿µÈñ', TO_DATE('1992-11-03','YYYY-MM-DD'), '010-3333-3333', SYSDATE);
 
 INSERT INTO member (member_id, login_id, login_pw, member_name, birth, tel, join_date)
-VALUES (member_id_seq.NEXTVAL, 'user05', 'pw05', 'ìµœì§€ì€', TO_DATE('1993-03-12','YYYY-MM-DD'), '010-5555-5555', SYSDATE);
+VALUES (member_id_seq.NEXTVAL, 'user04', 'pw04', '¹Ú¹Î¼ö', TO_DATE('1995-07-08','YYYY-MM-DD'), '010-4444-4444', SYSDATE);
 
 INSERT INTO member (member_id, login_id, login_pw, member_name, birth, tel, join_date)
-VALUES (member_id_seq.NEXTVAL, 'user06', 'pw06', 'ì •ìš°ì„±', TO_DATE('1987-09-25','YYYY-MM-DD'), '010-6666-6666', SYSDATE);
+VALUES (member_id_seq.NEXTVAL, 'user05', 'pw05', 'ÃÖÁöÀº', TO_DATE('1993-03-12','YYYY-MM-DD'), '010-5555-5555', SYSDATE);
 
 INSERT INTO member (member_id, login_id, login_pw, member_name, birth, tel, join_date)
-VALUES (member_id_seq.NEXTVAL, 'user07', 'pw07', 'í•œê°€ì¸', TO_DATE('1991-12-30','YYYY-MM-DD'), '010-7777-7777', SYSDATE);
+VALUES (member_id_seq.NEXTVAL, 'user06', 'pw06', 'Á¤¿ì¼º', TO_DATE('1987-09-25','YYYY-MM-DD'), '010-6666-6666', SYSDATE);
 
 INSERT INTO member (member_id, login_id, login_pw, member_name, birth, tel, join_date)
-VALUES (member_id_seq.NEXTVAL, 'user08', 'pw08', 'ì˜¤ì„¸í›ˆ', TO_DATE('1989-02-17','YYYY-MM-DD'), '010-8888-8888', SYSDATE);
+VALUES (member_id_seq.NEXTVAL, 'user07', 'pw07', 'ÇÑ°¡ÀÎ', TO_DATE('1991-12-30','YYYY-MM-DD'), '010-7777-7777', SYSDATE);
 
 INSERT INTO member (member_id, login_id, login_pw, member_name, birth, tel, join_date)
-VALUES (member_id_seq.NEXTVAL, 'user09', 'pw09', 'ì„œì§€ìˆ˜', TO_DATE('1994-06-22','YYYY-MM-DD'), '010-9999-9999', SYSDATE);
+VALUES (member_id_seq.NEXTVAL, 'user08', 'pw08', '¿À¼¼ÈÆ', TO_DATE('1989-02-17','YYYY-MM-DD'), '010-8888-8888', SYSDATE);
 
 INSERT INTO member (member_id, login_id, login_pw, member_name, birth, tel, join_date)
-VALUES (member_id_seq.NEXTVAL, 'user10', 'pw10', 'ì¥ë™ê±´', TO_DATE('1986-04-10','YYYY-MM-DD'), '010-1010-1010', SYSDATE);
+VALUES (member_id_seq.NEXTVAL, 'user09', 'pw09', '¼­Áö¼ö', TO_DATE('1994-06-22','YYYY-MM-DD'), '010-9999-9999', SYSDATE);
 
 INSERT INTO member (member_id, login_id, login_pw, member_name, birth, tel, join_date)
-VALUES (member_id_seq.NEXTVAL, 'sys', 'sys', 'ê´€ë¦¬ì', SYSDATE, '010-1234-5678', SYSDATE);
+VALUES (member_id_seq.NEXTVAL, 'user10', 'pw10', 'Àåµ¿°Ç', TO_DATE('1986-04-10','YYYY-MM-DD'), '010-1010-1010', SYSDATE);
 
 
-
---ìˆ˜ì—…í…Œì´ë¸”
---ìˆ˜ì—…ì•„ì´ë””(ì‹œí€€ìŠ¤)
+--?ˆ˜?—…?…Œ?´ë¸?
+--?ˆ˜?—…?•„?´?””(?‹œ???Š¤)
 DROP SEQUENCE class_id_seq;
 CREATE SEQUENCE class_id_seq
   INCREMENT BY 1
@@ -69,279 +65,60 @@ CREATE SEQUENCE class_id_seq
 
 DROP TABLE class CASCADE CONSTRAINTS purge;
 CREATE TABLE class (
-  class_id NUMBER(6, 0) CONSTRAINT class_class_id_pk PRIMARY KEY, --ìˆ˜ì—…ì•„ì´ë””(pk, seq)
-  category VARCHAR2(30), -- ìˆ˜ì—… ì¹´í…Œê³ ë¦¬
-  class_name VARCHAR2(50) NOT NULL, --ìˆ˜ì—…ëª…(not null)
-  registration_start DATE NOT NULL, -- ìˆ˜ì—… ë“±ë¡ ì‹œì‘ì¼(ìˆ˜ì—…ì‹œì‘ë‚ ì§œ 1~2ë‹¬ì „)
-  registration_end DATE NOT NULL, -- ìˆ˜ì—… ë“±ë¡ ë§ˆê°ì¼(ìˆ˜ì—…ì‹œì‘ë‚ ì§œ í•˜ë£¨ì „)
-  start_date DATE NOT NULL, --ìˆ˜ì—…ì‹œì‘ë‚ ì§œ(not null)
-  end_date DATE NOT NULL, --ìˆ˜ì—…ì¢…ë£Œë‚ ì§œ(not null)
-  class_description CLOB, --ìˆ˜ì—…ì„¤ëª…
-  class_capacity NUMBER(6, 0) NOT NULL, --ìˆ˜ê°•ì •ì›(not null)
-  class_date DATE DEFAULT SYSDATE NOT NULL -- ìˆ˜ì—…ìƒì„±ë‚ ì§œ
+  class_id NUMBER(6, 0) CONSTRAINT class_class_id_pk PRIMARY KEY, --?ˆ˜?—…?•„?´?””(pk, seq)
+  category VARCHAR2(30), -- ?ˆ˜?—… ì¹´í…Œê³ ë¦¬
+  class_name VARCHAR2(50) NOT NULL, --?ˆ˜?—…ëª?(not null)
+  registration_start DATE NOT NULL, -- ?ˆ˜?—… ?“±ë¡? ?‹œ?‘?¼(?ˆ˜?—…?‹œ?‘?‚ ì§? 1~2?‹¬? „)
+  registration_end DATE NOT NULL, -- ?ˆ˜?—… ?“±ë¡? ë§ˆê°?¼(?ˆ˜?—…?‹œ?‘?‚ ì§? ?•˜ë£¨ì „)
+  start_date DATE NOT NULL, --?ˆ˜?—…?‹œ?‘?‚ ì§?(not null)
+  end_date DATE NOT NULL, --?ˆ˜?—…ì¢…ë£Œ?‚ ì§?(not null)
+  class_description VARCHAR2(1000), --?ˆ˜?—…?„¤ëª?
+  class_capacity NUMBER(6, 0) NOT NULL, --?ˆ˜ê°•ì •?›(not null)
+  class_date DATE DEFAULT SYSDATE NOT NULL -- ?ˆ˜?—…?ƒ?„±?‚ ì§?
 );
 
 
 SET DEFINE OFF;
+BEGIN
+  FOR i IN 1..200 LOOP
+    INSERT INTO class(class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
+    VALUES(class_id_seq.NEXTVAL, 'ÇÇÆ®´Ï½º & PT',
+           'PT Å¬·¡½º ' || i,
+           TO_DATE('2025-09-01','YYYY-MM-DD'), TO_DATE('2025-09-30','YYYY-MM-DD'),
+           TO_DATE('2025-10-01','YYYY-MM-DD'), TO_DATE('2026-01-31','YYYY-MM-DD'),
+           'Àü½Å ¿îµ¿°ú Ã¼·Â °­È­¿¡ ÃÊÁ¡À» ¸ÂÃá PT Å¬·¡½º ' || i,
+           15 + MOD(i, 10));
+  END LOOP;
 
--- ========================== ìœ ì‚°ì†Œ & ëŒ„ìŠ¤ (10ê°œ) ==========================
-INSERT INTO class (class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-VALUES (class_id_seq.NEXTVAL, 'ìœ ì‚°ì†Œ & ëŒ„ìŠ¤', 'ìŠ¤í”¼ë‹',
-        TO_DATE('2025-09-03','YYYY-MM-DD'), TO_DATE('2025-10-02','YYYY-MM-DD'),
-        TO_DATE('2025-10-03','YYYY-MM-DD'), TO_DATE('2026-01-31','YYYY-MM-DD'),
-        'ìœ ì‚°ì†Œì™€ í•˜ì²´ ê°•í™” ìŠ¤í”¼ë‹', 25);
+  FOR i IN 1..200 LOOP
+    INSERT INTO class(class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
+    VALUES(class_id_seq.NEXTVAL, '¿ä°¡ & ÇÇÆ®´Ï½º',
+           '¿ä°¡ Å¬·¡½º ' || i,
+           TO_DATE('2025-09-01','YYYY-MM-DD'), TO_DATE('2025-09-30','YYYY-MM-DD'),
+           TO_DATE('2025-10-01','YYYY-MM-DD'), TO_DATE('2026-01-31','YYYY-MM-DD'),
+           '¸¶À½°ú ¸öÀÇ ±ÕÇüÀ» À§ÇÑ ¿ä°¡ Å¬·¡½º ' || i,
+           10 + MOD(i, 10));
+  END LOOP;
 
-INSERT INTO class (class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-VALUES (class_id_seq.NEXTVAL, 'ìœ ì‚°ì†Œ & ëŒ„ìŠ¤', 'ì•„ì¿ ì•„ë¡œë¹…',
-        TO_DATE('2025-09-08','YYYY-MM-DD'), TO_DATE('2025-10-07','YYYY-MM-DD'),
-        TO_DATE('2025-10-08','YYYY-MM-DD'), TO_DATE('2026-02-15','YYYY-MM-DD'),
-        'ìˆ˜ì¤‘ ìœ ì‚°ì†Œ ìš´ë™', 18);
-
-INSERT INTO class (class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-VALUES (class_id_seq.NEXTVAL, 'ìœ ì‚°ì†Œ & ëŒ„ìŠ¤', 'ë³µì‹± ê¸°ì´ˆ',
-        TO_DATE('2025-09-12','YYYY-MM-DD'), TO_DATE('2025-10-11','YYYY-MM-DD'),
-        TO_DATE('2025-10-12','YYYY-MM-DD'), TO_DATE('2026-03-01','YYYY-MM-DD'),
-        'ë³µì‹± ê¸°ë³¸ ìŠ¤í‚¬', 20);
-
-INSERT INTO class (class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-VALUES (class_id_seq.NEXTVAL, 'ìœ ì‚°ì†Œ & ëŒ„ìŠ¤', 'ëŒ„ìŠ¤ ì´ˆê¸‰',
-        TO_DATE('2025-09-15','YYYY-MM-DD'), TO_DATE('2025-10-14','YYYY-MM-DD'),
-        TO_DATE('2025-10-15','YYYY-MM-DD'), TO_DATE('2026-01-20','YYYY-MM-DD'),
-        'ê¸°ì´ˆ ëŒ„ìŠ¤ í”„ë¡œê·¸ë¨', 20);
-
-INSERT INTO class (class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-VALUES (class_id_seq.NEXTVAL, 'ìœ ì‚°ì†Œ & ëŒ„ìŠ¤', 'ëŒ„ìŠ¤ ì¤‘ê¸‰',
-        TO_DATE('2025-09-20','YYYY-MM-DD'), TO_DATE('2025-10-19','YYYY-MM-DD'),
-        TO_DATE('2025-10-20','YYYY-MM-DD'), TO_DATE('2026-01-25','YYYY-MM-DD'),
-        'ì¤‘ê¸‰ ëŒ„ìŠ¤ í”„ë¡œê·¸ë¨', 18);
-
-INSERT INTO class (class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-VALUES (class_id_seq.NEXTVAL, 'ìœ ì‚°ì†Œ & ëŒ„ìŠ¤', 'ì¤Œë°”',
-        TO_DATE('2025-09-25','YYYY-MM-DD'), TO_DATE('2025-10-24','YYYY-MM-DD'),
-        TO_DATE('2025-10-25','YYYY-MM-DD'), TO_DATE('2026-02-28','YYYY-MM-DD'),
-        'ìœ ì‚°ì†Œì™€ ì¶¤ì´ ê²°í•©ëœ ì¤Œë°” ìˆ˜ì—…', 22);
-
-INSERT INTO class (class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-VALUES (class_id_seq.NEXTVAL, 'ìœ ì‚°ì†Œ & ëŒ„ìŠ¤', 'ì—ì–´ë¡œë¹…',
-        TO_DATE('2025-10-01','YYYY-MM-DD'), TO_DATE('2025-10-31','YYYY-MM-DD'),
-        TO_DATE('2025-11-01','YYYY-MM-DD'), TO_DATE('2026-02-15','YYYY-MM-DD'),
-        'ì‹¬íì§€êµ¬ë ¥ ê°•í™” ì—ì–´ë¡œë¹…', 25);
-
-INSERT INTO class (class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-VALUES (class_id_seq.NEXTVAL, 'ìœ ì‚°ì†Œ & ëŒ„ìŠ¤', 'ìŠ¤íŠ¸ë¦¿ëŒ„ìŠ¤',
-        TO_DATE('2025-10-05','YYYY-MM-DD'), TO_DATE('2025-11-04','YYYY-MM-DD'),
-        TO_DATE('2025-11-05','YYYY-MM-DD'), TO_DATE('2026-03-01','YYYY-MM-DD'),
-        'ê¸°ì´ˆ ìŠ¤íŠ¸ë¦¿ëŒ„ìŠ¤ ìˆ˜ì—…', 20);
-
-INSERT INTO class (class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-VALUES (class_id_seq.NEXTVAL, 'ìœ ì‚°ì†Œ & ëŒ„ìŠ¤', 'ì¼€ì´íŒ ëŒ„ìŠ¤',
-        TO_DATE('2025-10-10','YYYY-MM-DD'), TO_DATE('2025-11-09','YYYY-MM-DD'),
-        TO_DATE('2025-11-10','YYYY-MM-DD'), TO_DATE('2026-03-05','YYYY-MM-DD'),
-        'ì¼€ì´íŒ ì•ˆë¬´ë¥¼ ë°°ìš°ëŠ” ëŒ„ìŠ¤ ìˆ˜ì—…', 18);
-
-INSERT INTO class (class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-VALUES (class_id_seq.NEXTVAL, 'ìœ ì‚°ì†Œ & ëŒ„ìŠ¤', 'ë³µì‹± ì¤‘ê¸‰',
-        TO_DATE('2025-10-15','YYYY-MM-DD'), TO_DATE('2025-11-14','YYYY-MM-DD'),
-        TO_DATE('2025-11-15','YYYY-MM-DD'), TO_DATE('2026-03-10','YYYY-MM-DD'),
-        'ë³µì‹± ìŠ¤í‚¬ í–¥ìƒ í”„ë¡œê·¸ë¨', 20);
-
--- ========================== ìš”ê°€ & í•„ë¼í…ŒìŠ¤ (10ê°œ) ==========================
-INSERT INTO class (class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-VALUES (class_id_seq.NEXTVAL, 'ìš”ê°€ & í•„ë¼í…ŒìŠ¤', 'ìš”ê°€ ì´ˆê¸‰',
-        TO_DATE('2025-09-02','YYYY-MM-DD'), TO_DATE('2025-10-01','YYYY-MM-DD'),
-        TO_DATE('2025-10-02','YYYY-MM-DD'), TO_DATE('2025-12-30','YYYY-MM-DD'),
-        'ê¸°ì´ˆ ìš”ê°€ ìì„¸ì™€ í˜¸í¡ë²•', 20);
-
-INSERT INTO class (class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-VALUES (class_id_seq.NEXTVAL, 'ìš”ê°€ & í•„ë¼í…ŒìŠ¤', 'ìš”ê°€ ì¤‘ê¸‰',
-        TO_DATE('2025-09-07','YYYY-MM-DD'), TO_DATE('2025-10-06','YYYY-MM-DD'),
-        TO_DATE('2025-10-07','YYYY-MM-DD'), TO_DATE('2026-01-10','YYYY-MM-DD'),
-        'ì¤‘ê¸‰ ìš”ê°€ ìì„¸ì™€ ìŠ¤íŠ¸ë ˆì¹­', 15);
-
-INSERT INTO class (class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-VALUES (class_id_seq.NEXTVAL, 'ìš”ê°€ & í•„ë¼í…ŒìŠ¤', 'í•„ë¼í…ŒìŠ¤ ê¸°ì´ˆ',
-        TO_DATE('2025-09-12','YYYY-MM-DD'), TO_DATE('2025-10-11','YYYY-MM-DD'),
-        TO_DATE('2025-10-12','YYYY-MM-DD'), TO_DATE('2026-01-15','YYYY-MM-DD'),
-        'ê·¼ë ¥ê³¼ ì½”ì–´ ê°•í™” í•„ë¼í…ŒìŠ¤', 20);
-
-INSERT INTO class (class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-VALUES (class_id_seq.NEXTVAL, 'ìš”ê°€ & í•„ë¼í…ŒìŠ¤', 'í•„ë¼í…ŒìŠ¤ ì¤‘ê¸‰',
-        TO_DATE('2025-09-18','YYYY-MM-DD'), TO_DATE('2025-10-17','YYYY-MM-DD'),
-        TO_DATE('2025-10-18','YYYY-MM-DD'), TO_DATE('2026-01-20','YYYY-MM-DD'),
-        'ì¤‘ê¸‰ í•„ë¼í…ŒìŠ¤', 18);
-
-INSERT INTO class (class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-VALUES (class_id_seq.NEXTVAL, 'ìš”ê°€ & í•„ë¼í…ŒìŠ¤', 'ìš”ê°€ ë‹¤ì´ì–´íŠ¸',
-        TO_DATE('2025-09-25','YYYY-MM-DD'), TO_DATE('2025-10-24','YYYY-MM-DD'),
-        TO_DATE('2025-10-25','YYYY-MM-DD'), TO_DATE('2026-02-01','YYYY-MM-DD'),
-        'ë‹¤ì´ì–´íŠ¸ìš© ìš”ê°€', 20);
-
-INSERT INTO class (class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-VALUES (class_id_seq.NEXTVAL, 'ìš”ê°€ & í•„ë¼í…ŒìŠ¤', 'í•„ë¼í…ŒìŠ¤ ë‹¤ì´ì–´íŠ¸',
-        TO_DATE('2025-10-01','YYYY-MM-DD'), TO_DATE('2025-10-31','YYYY-MM-DD'),
-        TO_DATE('2025-11-01','YYYY-MM-DD'), TO_DATE('2026-02-05','YYYY-MM-DD'),
-        'ì½”ì–´ ê°•í™” ë‹¤ì´ì–´íŠ¸ í•„ë¼í…ŒìŠ¤', 18);
-
-INSERT INTO class (class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-VALUES (class_id_seq.NEXTVAL, 'ìš”ê°€ & í•„ë¼í…ŒìŠ¤', 'ìŠ¤íŠ¸ë ˆì¹­',
-        TO_DATE('2025-10-05','YYYY-MM-DD'), TO_DATE('2025-11-04','YYYY-MM-DD'),
-        TO_DATE('2025-11-05','YYYY-MM-DD'), TO_DATE('2026-02-10','YYYY-MM-DD'),
-        'ì „ì‹  ìŠ¤íŠ¸ë ˆì¹­', 25);
-
-INSERT INTO class (class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-VALUES (class_id_seq.NEXTVAL, 'ìš”ê°€ & í•„ë¼í…ŒìŠ¤', 'ìš”ê°€ ì§‘ì¤‘ í”„ë¡œê·¸ë¨',
-        TO_DATE('2025-10-10','YYYY-MM-DD'), TO_DATE('2025-11-09','YYYY-MM-DD'),
-        TO_DATE('2025-11-10','YYYY-MM-DD'), TO_DATE('2026-02-15','YYYY-MM-DD'),
-        'ì§‘ì¤‘ ìš”ê°€ ìˆ˜ì—…', 15);
-
-INSERT INTO class (class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-VALUES (class_id_seq.NEXTVAL, 'ìš”ê°€ & í•„ë¼í…ŒìŠ¤', 'í•„ë¼í…ŒìŠ¤ ì§‘ì¤‘ í”„ë¡œê·¸ë¨',
-        TO_DATE('2025-10-15','YYYY-MM-DD'), TO_DATE('2025-11-14','YYYY-MM-DD'),
-        TO_DATE('2025-11-15','YYYY-MM-DD'), TO_DATE('2026-02-20','YYYY-MM-DD'),
-        'ì§‘ì¤‘ í•„ë¼í…ŒìŠ¤', 15);
-
-INSERT INTO class (class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-VALUES (class_id_seq.NEXTVAL, 'ìš”ê°€ & í•„ë¼í…ŒìŠ¤', 'ìš”ê°€ & íë§',
-        TO_DATE('2025-10-20','YYYY-MM-DD'), TO_DATE('2025-11-19','YYYY-MM-DD'),
-        TO_DATE('2025-11-20','YYYY-MM-DD'), TO_DATE('2026-03-01','YYYY-MM-DD'),
-        'íë§ ìš”ê°€', 20);
-
--- ========================== í”¼íŠ¸ë‹ˆìŠ¤ & PT (10ê°œ) ==========================
-INSERT INTO class (class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-VALUES (class_id_seq.NEXTVAL, 'í”¼íŠ¸ë‹ˆìŠ¤ & PT', 'í—¬ìŠ¤ ì´ˆê¸‰',
-        TO_DATE('2025-09-01','YYYY-MM-DD'), TO_DATE('2025-09-30','YYYY-MM-DD'),
-        TO_DATE('2025-10-01','YYYY-MM-DD'), TO_DATE('2025-12-31','YYYY-MM-DD'),
-        'ê¸°ì´ˆ í—¬ìŠ¤ íŠ¸ë ˆì´ë‹ ìˆ˜ì—…', 30);
-
-INSERT INTO class (class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-VALUES (class_id_seq.NEXTVAL, 'í”¼íŠ¸ë‹ˆìŠ¤ & PT', 'í—¬ìŠ¤ ì¤‘ê¸‰',
-        TO_DATE('2025-09-05','YYYY-MM-DD'), TO_DATE('2025-10-04','YYYY-MM-DD'),
-        TO_DATE('2025-10-05','YYYY-MM-DD'), TO_DATE('2025-12-31','YYYY-MM-DD'),
-        'ì¤‘ê¸‰ í—¬ìŠ¤ ìš´ë™ í”„ë¡œê·¸ë¨', 25);
-
-INSERT INTO class (class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-VALUES (class_id_seq.NEXTVAL, 'í”¼íŠ¸ë‹ˆìŠ¤ & PT', 'PT ë§ì¶¤ í”„ë¡œê·¸ë¨',
-        TO_DATE('2025-09-10','YYYY-MM-DD'), TO_DATE('2025-10-09','YYYY-MM-DD'),
-        TO_DATE('2025-10-10','YYYY-MM-DD'), TO_DATE('2025-12-31','YYYY-MM-DD'),
-        'ê°œì¸ ë§ì¶¤ ìš´ë™ í”„ë¡œê·¸ë¨', 10);
-
-INSERT INTO class (class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-VALUES (class_id_seq.NEXTVAL, 'í”¼íŠ¸ë‹ˆìŠ¤ & PT', 'í¬ë¡œìŠ¤í• ì…ë¬¸',
-        TO_DATE('2025-09-12','YYYY-MM-DD'), TO_DATE('2025-10-11','YYYY-MM-DD'),
-        TO_DATE('2025-10-12','YYYY-MM-DD'), TO_DATE('2026-01-15','YYYY-MM-DD'),
-        'í¬ë¡œìŠ¤í• ê¸°ì´ˆ ê·¼ë ¥í›ˆë ¨', 12);
-
-INSERT INTO class (class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-VALUES (class_id_seq.NEXTVAL, 'í”¼íŠ¸ë‹ˆìŠ¤ & PT', 'í¬ë¡œìŠ¤í• ì¤‘ê¸‰',
-        TO_DATE('2025-09-20','YYYY-MM-DD'), TO_DATE('2025-10-19','YYYY-MM-DD'),
-        TO_DATE('2025-10-20','YYYY-MM-DD'), TO_DATE('2026-01-20','YYYY-MM-DD'),
-        'ì¤‘ê¸‰ í¬ë¡œìŠ¤í• ìš´ë™', 12);
-
-INSERT INTO class (class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-VALUES (class_id_seq.NEXTVAL, 'í”¼íŠ¸ë‹ˆìŠ¤ & PT', 'íŒŒì›Œë¦¬í”„íŒ… ê¸°ì´ˆ',
-        TO_DATE('2025-10-01','YYYY-MM-DD'), TO_DATE('2025-10-31','YYYY-MM-DD'),
-        TO_DATE('2025-11-01','YYYY-MM-DD'), TO_DATE('2026-02-01','YYYY-MM-DD'),
-        'ê¸°ì´ˆ ê·¼ë ¥ ìš´ë™', 10);
-
-INSERT INTO class (class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-VALUES (class_id_seq.NEXTVAL, 'í”¼íŠ¸ë‹ˆìŠ¤ & PT', 'íŒŒì›Œë¦¬í”„íŒ… ì¤‘ê¸‰',
-        TO_DATE('2025-10-05','YYYY-MM-DD'), TO_DATE('2025-11-04','YYYY-MM-DD'),
-        TO_DATE('2025-11-05','YYYY-MM-DD'), TO_DATE('2026-02-05','YYYY-MM-DD'),
-        'ì¤‘ê¸‰ ê·¼ë ¥ ìš´ë™', 10);
-
-INSERT INTO class (class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-VALUES (class_id_seq.NEXTVAL, 'í”¼íŠ¸ë‹ˆìŠ¤ & PT', 'ê¸°ì´ˆ ê·¼ë ¥ìš´ë™',
-        TO_DATE('2025-10-10','YYYY-MM-DD'), TO_DATE('2025-11-09','YYYY-MM-DD'),
-        TO_DATE('2025-11-10','YYYY-MM-DD'), TO_DATE('2026-02-10','YYYY-MM-DD'),
-        'ì´ˆë³´ìë¥¼ ìœ„í•œ ê·¼ë ¥ìš´ë™', 20);
-
-INSERT INTO class (class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-VALUES (class_id_seq.NEXTVAL, 'í”¼íŠ¸ë‹ˆìŠ¤ & PT', 'ê·¼ë ¥ í–¥ìƒ í”„ë¡œê·¸ë¨',
-        TO_DATE('2025-10-15','YYYY-MM-DD'), TO_DATE('2025-11-14','YYYY-MM-DD'),
-        TO_DATE('2025-11-15','YYYY-MM-DD'), TO_DATE('2026-02-15','YYYY-MM-DD'),
-        'ê·¼ë ¥ í–¥ìƒ ì§‘ì¤‘ í›ˆë ¨', 15);
-
-INSERT INTO class (class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-VALUES (class_id_seq.NEXTVAL, 'í”¼íŠ¸ë‹ˆìŠ¤ & PT', 'ì²´ë ¥ í–¥ìƒ í”„ë¡œê·¸ë¨',
-        TO_DATE('2025-10-20','YYYY-MM-DD'), TO_DATE('2025-11-19','YYYY-MM-DD'),
-        TO_DATE('2025-11-20','YYYY-MM-DD'), TO_DATE('2026-03-01','YYYY-MM-DD'),
-        'ì²´ë ¥ ë° ê·¼ë ¥ ê°•í™”', 25);
-
-INSERT INTO class (
-  class_id,
-  category,
-  class_name,
-  registration_start,
-  registration_end,
-  start_date,
-  end_date,
-  class_description,
-  class_capacity
-)
-SELECT 
-  class_id_seq.NEXTVAL,  -- ì‹œí€€ìŠ¤ë¡œ PK ìƒˆë¡œ ë¶€ì—¬
-  category,
-  class_name,
-  registration_start,
-  registration_end,
-  start_date,
-  end_date,
-  class_description,
-  class_capacity
-FROM class;
-
-INSERT INTO class (
-  class_id,
-  category,
-  class_name,
-  registration_start,
-  registration_end,
-  start_date,
-  end_date,
-  class_description,
-  class_capacity
-)
-SELECT 
-  class_id_seq.NEXTVAL,  -- ì‹œí€€ìŠ¤ë¡œ PK ìƒˆë¡œ ë¶€ì—¬
-  category,
-  class_name,
-  registration_start,
-  registration_end,
-  start_date,
-  end_date,
-  class_description,
-  class_capacity
-FROM class;
-
-INSERT INTO class (
-  class_id,
-  category,
-  class_name,
-  registration_start,
-  registration_end,
-  start_date,
-  end_date,
-  class_description,
-  class_capacity
-)
-SELECT 
-  class_id_seq.NEXTVAL,  -- ì‹œí€€ìŠ¤ë¡œ PK ìƒˆë¡œ ë¶€ì—¬
-  category,
-  class_name,
-  registration_start,
-  registration_end,
-  start_date,
-  end_date,
-  class_description,
-  class_capacity
-FROM class;
+  FOR i IN 1..200 LOOP
+    INSERT INTO class(class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
+    VALUES(class_id_seq.NEXTVAL, 'À¯»ê¼Ò & ´í½º',
+           '´í½º Å¬·¡½º ' || i,
+           TO_DATE('2025-09-01','YYYY-MM-DD'), TO_DATE('2025-09-30','YYYY-MM-DD'),
+           TO_DATE('2025-10-01','YYYY-MM-DD'), TO_DATE('2026-01-31','YYYY-MM-DD'),
+           '½ÉÆó Áö±¸·Â Çâ»ó°ú Àç¹Ì¸¦ À§ÇÑ ´í½º Å¬·¡½º ' || i,
+           20 + MOD(i, 10));
+  END LOOP;
+END;
+/
 
 
 
 
 
---ìˆ˜ê°• ì‹ ì²­ í…Œì´ë¸”(íšŒì› - ìˆ˜ì—… ì—°ê²°)
---ìˆ˜ê°•ì‹ ì²­ì•„ì´ë””(ì‹œí€€ìŠ¤)
+
+--?ˆ˜ê°? ?‹ ì²? ?…Œ?´ë¸?(?šŒ?› - ?ˆ˜?—… ?—°ê²?)
+--?ˆ˜ê°•ì‹ ì²??•„?´?””(?‹œ???Š¤)
 DROP SEQUENCE enrollment_id_seq;
 CREATE SEQUENCE enrollment_id_seq
   INCREMENT BY 1
@@ -352,16 +129,16 @@ CREATE SEQUENCE enrollment_id_seq
 
 DROP TABLE enrollment CASCADE CONSTRAINTS purge;
 CREATE TABLE enrollment (
-  enrollment_id NUMBER(6, 0) CONSTRAINT enrollment_enrollment_id_pk PRIMARY KEY, --ì‹ ì²­ì•„ì´ë””(pk, seq)
-  member_id NUMBER(6, 0) NOT NULL, --íšŒì›ì•„ì´ë””(not null)
-  class_id NUMBER(6, 0) NOT NULL, --ìˆ˜ì—…ì•„ì´ë””(not null)
-  enrollment_date DATE DEFAULT SYSDATE NOT NULL, --ìˆ˜ì—…ì‹ ì²­ë‚ ì§œ(default sysdate)
-  CONSTRAINT enrollment_member_fk FOREIGN KEY (member_id) REFERENCES member(member_id), --ì™¸ë˜í‚¤
-  CONSTRAINT enrollment_class_fk FOREIGN KEY (class_id) REFERENCES class(class_id), --ì™¸ë˜í‚¤
-  CONSTRAINT member_class_uq UNIQUE (member_id, class_id) --ê°™ì€ ìˆ˜ì—… ì¤‘ë³µ ë°©ì§€
+  enrollment_id NUMBER(6, 0) CONSTRAINT enrollment_enrollment_id_pk PRIMARY KEY, --?‹ ì²??•„?´?””(pk, seq)
+  member_id NUMBER(6, 0) NOT NULL, --?šŒ?›?•„?´?””(not null)
+  class_id NUMBER(6, 0) NOT NULL, --?ˆ˜?—…?•„?´?””(not null)
+  enrollment_date DATE DEFAULT SYSDATE NOT NULL, --?ˆ˜?—…?‹ ì²??‚ ì§?(default sysdate)
+  CONSTRAINT enrollment_member_fk FOREIGN KEY (member_id) REFERENCES member(member_id), --?™¸?˜?‚¤
+  CONSTRAINT enrollment_class_fk FOREIGN KEY (class_id) REFERENCES class(class_id), --?™¸?˜?‚¤
+  CONSTRAINT member_class_uq UNIQUE (member_id, class_id) --ê°™ì? ?ˆ˜?—… ì¤‘ë³µ ë°©ì?
 );
 
--- ìˆ˜ê°•ì‹ ì²­ ìƒ˜í”Œë°ì´í„° 10ê°œ
+-- ?ˆ˜ê°•ì‹ ì²? ?ƒ˜?”Œ?°?´?„° 10ê°?
 INSERT INTO enrollment (enrollment_id, member_id, class_id, enrollment_date) VALUES
 (enrollment_id_seq.NEXTVAL, 1, 1, SYSDATE);
 
@@ -392,31 +169,31 @@ INSERT INTO enrollment (enrollment_id, member_id, class_id, enrollment_date) VAL
 INSERT INTO enrollment (enrollment_id, member_id, class_id, enrollment_date) VALUES
 (enrollment_id_seq.NEXTVAL, 10, 10, SYSDATE);
 
--- ìƒˆë¡œìš´ ìˆ˜ê°•ì‹ ì²­ ìƒ˜í”Œë°ì´í„° 10ê°œ
+-- ?ƒˆë¡œìš´ ?ˆ˜ê°•ì‹ ì²? ?ƒ˜?”Œ?°?´?„° 10ê°?
 INSERT INTO enrollment (enrollment_id, member_id, class_id, enrollment_date) VALUES
-(enrollment_id_seq.NEXTVAL, 1, 2, SYSDATE); -- í™ê¸¸ë™ â†’ PT ë§ì¶¤ í”„ë¡œê·¸ë¨
+(enrollment_id_seq.NEXTVAL, 1, 2, SYSDATE); -- ?™ê¸¸ë™ ?†’ PT ë§ì¶¤ ?”„ë¡œê·¸?¨
 INSERT INTO enrollment (enrollment_id, member_id, class_id, enrollment_date) VALUES
-(enrollment_id_seq.NEXTVAL, 1, 5, SYSDATE); -- í™ê¸¸ë™ â†’ í•„ë¼í…ŒìŠ¤
+(enrollment_id_seq.NEXTVAL, 1, 5, SYSDATE); -- ?™ê¸¸ë™ ?†’ ?•„?¼?…Œ?Š¤
 INSERT INTO enrollment (enrollment_id, member_id, class_id, enrollment_date) VALUES
-(enrollment_id_seq.NEXTVAL, 2, 1, SYSDATE); -- ê¹€ì² ìˆ˜ â†’ í—¬ìŠ¤ ì´ˆê¸‰
+(enrollment_id_seq.NEXTVAL, 2, 1, SYSDATE); -- ê¹?ì² ìˆ˜ ?†’ ?—¬?Š¤ ì´ˆê¸‰
 INSERT INTO enrollment (enrollment_id, member_id, class_id, enrollment_date) VALUES
-(enrollment_id_seq.NEXTVAL, 2, 3, SYSDATE); -- ê¹€ì² ìˆ˜ â†’ ìš”ê°€ ì´ˆê¸‰
+(enrollment_id_seq.NEXTVAL, 2, 3, SYSDATE); -- ê¹?ì² ìˆ˜ ?†’ ?š”ê°? ì´ˆê¸‰
 INSERT INTO enrollment (enrollment_id, member_id, class_id, enrollment_date) VALUES
-(enrollment_id_seq.NEXTVAL, 3, 6, SYSDATE); -- ì´ì˜í¬ â†’ ìŠ¤í”¼ë‹
+(enrollment_id_seq.NEXTVAL, 3, 6, SYSDATE); -- ?´?˜?¬ ?†’ ?Š¤?”¼?‹
 INSERT INTO enrollment (enrollment_id, member_id, class_id, enrollment_date) VALUES
-(enrollment_id_seq.NEXTVAL, 4, 2, SYSDATE); -- ë°•ë¯¼ìˆ˜ â†’ PT ë§ì¶¤ í”„ë¡œê·¸ë¨
+(enrollment_id_seq.NEXTVAL, 4, 2, SYSDATE); -- ë°•ë?¼ìˆ˜ ?†’ PT ë§ì¶¤ ?”„ë¡œê·¸?¨
 INSERT INTO enrollment (enrollment_id, member_id, class_id, enrollment_date) VALUES
-(enrollment_id_seq.NEXTVAL, 5, 4, SYSDATE); -- ìµœì§€ì€ â†’ ìš”ê°€ ì¤‘ê¸‰
+(enrollment_id_seq.NEXTVAL, 5, 4, SYSDATE); -- ìµœì??? ?†’ ?š”ê°? ì¤‘ê¸‰
 INSERT INTO enrollment (enrollment_id, member_id, class_id, enrollment_date) VALUES
-(enrollment_id_seq.NEXTVAL, 6, 3, SYSDATE); -- ì •ìš°ì„± â†’ ìš”ê°€ ì´ˆê¸‰
+(enrollment_id_seq.NEXTVAL, 6, 3, SYSDATE); -- ? •?š°?„± ?†’ ?š”ê°? ì´ˆê¸‰
 INSERT INTO enrollment (enrollment_id, member_id, class_id, enrollment_date) VALUES
-(enrollment_id_seq.NEXTVAL, 7, 5, SYSDATE); -- í•œê°€ì¸ â†’ í•„ë¼í…ŒìŠ¤
+(enrollment_id_seq.NEXTVAL, 7, 5, SYSDATE); -- ?•œê°??¸ ?†’ ?•„?¼?…Œ?Š¤
 INSERT INTO enrollment (enrollment_id, member_id, class_id, enrollment_date) VALUES
-(enrollment_id_seq.NEXTVAL, 8, 7, SYSDATE); -- ì˜¤ì„¸í›ˆ â†’ ìŠ¤íŠ¸ë ˆì¹­ / ë¦´ë ‰ìŠ¤
+(enrollment_id_seq.NEXTVAL, 8, 7, SYSDATE); -- ?˜¤?„¸?›ˆ ?†’ ?Š¤?Š¸? ˆì¹? / ë¦´ë ‰?Š¤
 
 
---ì¶œì„í…Œì´ë¸”
---ì¶œì„ì•„ì´ë””(ì‹œí€€ìŠ¤)
+--ì¶œì„?…Œ?´ë¸?
+--ì¶œì„?•„?´?””(?‹œ???Š¤)
 DROP SEQUENCE attendance_id_seq;
 CREATE SEQUENCE attendance_id_seq
   INCREMENT BY 1
@@ -428,8 +205,8 @@ CREATE SEQUENCE attendance_id_seq
 DROP TABLE attendance CASCADE CONSTRAINTS purge;
 CREATE TABLE attendance(
   attendance_id NUMBER(6, 0) CONSTRAINT attendance_attendance_id_pk PRIMARY KEY, --ì¶œì„ë²ˆí˜¸(pk, seq)
-  member_id NUMBER(6, 0) NOT NULL, --íšŒì›ì•„ì´ë””
-  check_in_time DATE DEFAULT SYSDATE NOT NULL, --ì…ì‹¤ì‹œê°„
-  check_out_time DATE, --í‡´ì‹¤ì‹œê°„
-  CONSTRAINT attendance_member_fk FOREIGN KEY (member_id) REFERENCES member(member_id) --ì™¸ë˜í‚¤
+  member_id NUMBER(6, 0) NOT NULL, --?šŒ?›?•„?´?””
+  check_in_time DATE DEFAULT SYSDATE NOT NULL, --?…?‹¤?‹œê°?
+  check_out_time DATE, --?‡´?‹¤?‹œê°?
+  CONSTRAINT attendance_member_fk FOREIGN KEY (member_id) REFERENCES member(member_id) --?™¸?˜?‚¤
 );

@@ -5,7 +5,7 @@ ORDER BY class_id;
 SELECT *
 FROM enrollment;
 
--- ìˆ˜ì—… ëª©ë¡ ì¶œë ¥
+-- ?ˆ˜?—… ëª©ë¡ ì¶œë ¥
 SELECT c.class_id
       ,c.category
       ,c.class_name
@@ -26,9 +26,9 @@ GROUP BY c.class_id
         ,c.start_date
         ,c.end_date
         ,c.class_capacity
-ORDER BY c.class_id DESC; -- ìµœì‹  ë“±ë¡ ìˆœ
---ORDER BY c.registration_end ASC; -- ë§ˆê° ë¹ ë¥¸ ìˆœ
---ORDER BY c.start_date ASC; -- ì‹œìž‘ì¼ ë¹ ë¥¸ ìˆœ
+ORDER BY c.class_id DESC; -- ìµœì‹  ?“±ë¡? ?ˆœ
+--ORDER BY c.registration_end ASC; -- ë§ˆê° ë¹ ë¥¸ ?ˆœ
+--ORDER BY c.start_date ASC; -- ?‹œ?ž‘?¼ ë¹ ë¥¸ ?ˆœ
 
 SELECT *
 FROM member;
@@ -36,7 +36,7 @@ FROM member;
 DELETE FROM member
 WHERE member_id = 11;
 
-SELECT DISTINCT category
+SELECT *
 FROM class;
 
 SELECT *
@@ -58,7 +58,24 @@ SELECT *
       )
       WHERE rn > :offset AND rn <= :offset + :perPage;
     
--- ìˆ˜ì—… ì‹ ì²­ ëª©ë¡
+-- ?ˆ˜?—… ?‹ ì²? ëª©ë¡
 SELECT *
 FROM enrollment
 WHERE member_id = 12;
+
+SELECT c.class_id
+     , c.category
+     , c.class_name
+     , c.registration_start
+     , c.registration_end
+     , c.start_date
+     , c.end_date
+     , c.class_description
+     , c.class_capacity
+     , COUNT(e.enrollment_id) OVER(PARTITION BY c.class_id) AS enrollment_count
+FROM class c
+LEFT JOIN enrollment e
+ON c.class_id = e.class_id
+WHERE c.class_id = 600
+GROUP BY c.class_id, c.category, c.class_name, c.registration_start, c.registration_end, 
+         c.start_date, c.end_date, c.class_description, c.class_capacity, e.enrollment_id;
