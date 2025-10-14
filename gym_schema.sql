@@ -1,7 +1,7 @@
---?šŒ?›ê´?ë¦?(?—¬?Š¤?¥)
+--?ï¿½ï¿½?ï¿½ï¿½ï¿½?ï¿½?(?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½)
 
---?šŒ?›?…Œ?´ë¸?
---?šŒ?›?•„?´?””(?‹œ???Š¤)
+--?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ï¿½?
+--?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½(?ï¿½ï¿½???ï¿½ï¿½)
 DROP SEQUENCE member_id_seq;
 CREATE SEQUENCE member_id_seq
   INCREMENT BY 1
@@ -12,49 +12,49 @@ CREATE SEQUENCE member_id_seq
 
 DROP TABLE member CASCADE CONSTRAINTS purge;
 CREATE TABLE member (
-  member_id NUMBER(6, 0) CONSTRAINT member_merber_id_pk PRIMARY KEY, --?šŒ?›?•„?´?””(pk, seq)
-  login_id VARCHAR2(15) NOT NULL, --?•„?´?””(not null)
-  login_pw VARCHAR2(15) NOT NULL, --ë¹„ë?ë²ˆí˜¸(not null)
-  member_name VARCHAR2(20) NOT NULL, --?´ë¦?(not null)
-  birth DATE NOT NULL, --?ƒ?…„?›”?¼(not null)
-  tel VARCHAR2(20) NOT NULL, --?œ´???°ë²ˆí˜¸(not null)
+  member_id NUMBER(6, 0) CONSTRAINT member_merber_id_pk PRIMARY KEY, --?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½(pk, seq)
+  login_id VARCHAR2(15) NOT NULL, --?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½(not null)
+  login_pw VARCHAR2(15) NOT NULL, --ë¹„ï¿½?ë²ˆí˜¸(not null)
+  member_name VARCHAR2(20) NOT NULL, --?ï¿½ï¿½ï¿½?(not null)
+  birth DATE NOT NULL, --?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½(not null)
+  tel VARCHAR2(20) NOT NULL, --?ï¿½ï¿½???ï¿½ï¿½ë²ˆí˜¸(not null)
   join_date DATE DEFAULT SYSDATE
 );
 
--- ?ƒ˜?”Œ?°?´?„°
+-- ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½
 INSERT INTO member (member_id, login_id, login_pw, member_name, birth, tel, join_date)
-VALUES (member_id_seq.NEXTVAL, 'user01', 'pw01', 'È«±æµ¿', TO_DATE('1990-01-15','YYYY-MM-DD'), '010-1111-1111', SYSDATE);
-
-INSERT INTO member (member_id, login_id, login_pw, member_name, birth, tel, join_date)
-VALUES (member_id_seq.NEXTVAL, 'user02', 'pw02', '±èÃ¶¼ö', TO_DATE('1988-05-20','YYYY-MM-DD'), '010-2222-2222', SYSDATE);
+VALUES (member_id_seq.NEXTVAL, 'user01', 'pw01', 'È«ï¿½æµ¿', TO_DATE('1990-01-15','YYYY-MM-DD'), '010-1111-1111', SYSDATE);
 
 INSERT INTO member (member_id, login_id, login_pw, member_name, birth, tel, join_date)
-VALUES (member_id_seq.NEXTVAL, 'user03', 'pw03', 'ÀÌ¿µÈñ', TO_DATE('1992-11-03','YYYY-MM-DD'), '010-3333-3333', SYSDATE);
+VALUES (member_id_seq.NEXTVAL, 'user02', 'pw02', 'ï¿½ï¿½Ã¶ï¿½ï¿½', TO_DATE('1988-05-20','YYYY-MM-DD'), '010-2222-2222', SYSDATE);
 
 INSERT INTO member (member_id, login_id, login_pw, member_name, birth, tel, join_date)
-VALUES (member_id_seq.NEXTVAL, 'user04', 'pw04', '¹Ú¹Î¼ö', TO_DATE('1995-07-08','YYYY-MM-DD'), '010-4444-4444', SYSDATE);
+VALUES (member_id_seq.NEXTVAL, 'user03', 'pw03', 'ï¿½Ì¿ï¿½ï¿½ï¿½', TO_DATE('1992-11-03','YYYY-MM-DD'), '010-3333-3333', SYSDATE);
 
 INSERT INTO member (member_id, login_id, login_pw, member_name, birth, tel, join_date)
-VALUES (member_id_seq.NEXTVAL, 'user05', 'pw05', 'ÃÖÁöÀº', TO_DATE('1993-03-12','YYYY-MM-DD'), '010-5555-5555', SYSDATE);
+VALUES (member_id_seq.NEXTVAL, 'user04', 'pw04', 'ï¿½Ú¹Î¼ï¿½', TO_DATE('1995-07-08','YYYY-MM-DD'), '010-4444-4444', SYSDATE);
 
 INSERT INTO member (member_id, login_id, login_pw, member_name, birth, tel, join_date)
-VALUES (member_id_seq.NEXTVAL, 'user06', 'pw06', 'Á¤¿ì¼º', TO_DATE('1987-09-25','YYYY-MM-DD'), '010-6666-6666', SYSDATE);
+VALUES (member_id_seq.NEXTVAL, 'user05', 'pw05', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', TO_DATE('1993-03-12','YYYY-MM-DD'), '010-5555-5555', SYSDATE);
 
 INSERT INTO member (member_id, login_id, login_pw, member_name, birth, tel, join_date)
-VALUES (member_id_seq.NEXTVAL, 'user07', 'pw07', 'ÇÑ°¡ÀÎ', TO_DATE('1991-12-30','YYYY-MM-DD'), '010-7777-7777', SYSDATE);
+VALUES (member_id_seq.NEXTVAL, 'user06', 'pw06', 'ï¿½ï¿½ï¿½ì¼º', TO_DATE('1987-09-25','YYYY-MM-DD'), '010-6666-6666', SYSDATE);
 
 INSERT INTO member (member_id, login_id, login_pw, member_name, birth, tel, join_date)
-VALUES (member_id_seq.NEXTVAL, 'user08', 'pw08', '¿À¼¼ÈÆ', TO_DATE('1989-02-17','YYYY-MM-DD'), '010-8888-8888', SYSDATE);
+VALUES (member_id_seq.NEXTVAL, 'user07', 'pw07', 'ï¿½Ñ°ï¿½ï¿½ï¿½', TO_DATE('1991-12-30','YYYY-MM-DD'), '010-7777-7777', SYSDATE);
 
 INSERT INTO member (member_id, login_id, login_pw, member_name, birth, tel, join_date)
-VALUES (member_id_seq.NEXTVAL, 'user09', 'pw09', '¼­Áö¼ö', TO_DATE('1994-06-22','YYYY-MM-DD'), '010-9999-9999', SYSDATE);
+VALUES (member_id_seq.NEXTVAL, 'user08', 'pw08', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', TO_DATE('1989-02-17','YYYY-MM-DD'), '010-8888-8888', SYSDATE);
 
 INSERT INTO member (member_id, login_id, login_pw, member_name, birth, tel, join_date)
-VALUES (member_id_seq.NEXTVAL, 'user10', 'pw10', 'Àåµ¿°Ç', TO_DATE('1986-04-10','YYYY-MM-DD'), '010-1010-1010', SYSDATE);
+VALUES (member_id_seq.NEXTVAL, 'user09', 'pw09', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', TO_DATE('1994-06-22','YYYY-MM-DD'), '010-9999-9999', SYSDATE);
+
+INSERT INTO member (member_id, login_id, login_pw, member_name, birth, tel, join_date)
+VALUES (member_id_seq.NEXTVAL, 'user10', 'pw10', 'ï¿½åµ¿ï¿½ï¿½', TO_DATE('1986-04-10','YYYY-MM-DD'), '010-1010-1010', SYSDATE);
 
 
---?ˆ˜?—…?…Œ?´ë¸?
---?ˆ˜?—…?•„?´?””(?‹œ???Š¤)
+--?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ï¿½?
+--?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½(?ï¿½ï¿½???ï¿½ï¿½)
 DROP SEQUENCE class_id_seq;
 CREATE SEQUENCE class_id_seq
   INCREMENT BY 1
@@ -65,16 +65,16 @@ CREATE SEQUENCE class_id_seq
 
 DROP TABLE class CASCADE CONSTRAINTS purge;
 CREATE TABLE class (
-  class_id NUMBER(6, 0) CONSTRAINT class_class_id_pk PRIMARY KEY, --?ˆ˜?—…?•„?´?””(pk, seq)
-  category VARCHAR2(30), -- ?ˆ˜?—… ì¹´í…Œê³ ë¦¬
-  class_name VARCHAR2(50) NOT NULL, --?ˆ˜?—…ëª?(not null)
-  registration_start DATE NOT NULL, -- ?ˆ˜?—… ?“±ë¡? ?‹œ?‘?¼(?ˆ˜?—…?‹œ?‘?‚ ì§? 1~2?‹¬? „)
-  registration_end DATE NOT NULL, -- ?ˆ˜?—… ?“±ë¡? ë§ˆê°?¼(?ˆ˜?—…?‹œ?‘?‚ ì§? ?•˜ë£¨ì „)
-  start_date DATE NOT NULL, --?ˆ˜?—…?‹œ?‘?‚ ì§?(not null)
-  end_date DATE NOT NULL, --?ˆ˜?—…ì¢…ë£Œ?‚ ì§?(not null)
-  class_description VARCHAR2(1000), --?ˆ˜?—…?„¤ëª?
-  class_capacity NUMBER(6, 0) NOT NULL, --?ˆ˜ê°•ì •?›(not null)
-  class_date DATE DEFAULT SYSDATE NOT NULL -- ?ˆ˜?—…?ƒ?„±?‚ ì§?
+  class_id NUMBER(6, 0) CONSTRAINT class_class_id_pk PRIMARY KEY, --?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½(pk, seq)
+  category VARCHAR2(30), -- ?ï¿½ï¿½?ï¿½ï¿½ ì¹´í…Œê³ ë¦¬
+  class_name VARCHAR2(50) NOT NULL, --?ï¿½ï¿½?ï¿½ï¿½ï¿½?(not null)
+  registration_start DATE NOT NULL, -- ?ï¿½ï¿½?ï¿½ï¿½ ?ï¿½ï¿½ï¿½? ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½(?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ï¿½? 1~2?ï¿½ï¿½?ï¿½ï¿½)
+  registration_end DATE NOT NULL, -- ?ï¿½ï¿½?ï¿½ï¿½ ?ï¿½ï¿½ï¿½? ë§ˆê°?ï¿½ï¿½(?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ï¿½? ?ï¿½ï¿½ë£¨ì „)
+  start_date DATE NOT NULL, --?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ï¿½?(not null)
+  end_date DATE NOT NULL, --?ï¿½ï¿½?ï¿½ï¿½ì¢…ë£Œ?ï¿½ï¿½ï¿½?(not null)
+  class_description VARCHAR2(1000), --?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ï¿½?
+  class_capacity NUMBER(6, 0) NOT NULL, --?ï¿½ï¿½ê°•ì •?ï¿½ï¿½(not null)
+  class_date DATE DEFAULT SYSDATE NOT NULL -- ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ï¿½?
 );
 
 
@@ -82,31 +82,31 @@ SET DEFINE OFF;
 BEGIN
   FOR i IN 1..200 LOOP
     INSERT INTO class(class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-    VALUES(class_id_seq.NEXTVAL, 'ÇÇÆ®´Ï½º & PT',
-           'PT Å¬·¡½º ' || i,
+    VALUES(class_id_seq.NEXTVAL, 'í”¼íŠ¸ë‹ˆìŠ¤ & PT',
+           'PT í´ë˜ìŠ¤ ' || i,
            TO_DATE('2025-09-01','YYYY-MM-DD'), TO_DATE('2025-09-30','YYYY-MM-DD'),
            TO_DATE('2025-10-01','YYYY-MM-DD'), TO_DATE('2026-01-31','YYYY-MM-DD'),
-           'Àü½Å ¿îµ¿°ú Ã¼·Â °­È­¿¡ ÃÊÁ¡À» ¸ÂÃá PT Å¬·¡½º ' || i,
+           'ì „ì‹  ìš´ë™ê³¼ ì²´ë ¥ ê°•í™”ì— ì´ˆì ì„ ë§ì¶˜ PT í´ë˜ìŠ¤ ' || i,
            15 + MOD(i, 10));
   END LOOP;
 
   FOR i IN 1..200 LOOP
     INSERT INTO class(class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-    VALUES(class_id_seq.NEXTVAL, '¿ä°¡ & ÇÇÆ®´Ï½º',
-           '¿ä°¡ Å¬·¡½º ' || i,
+    VALUES(class_id_seq.NEXTVAL, 'ìš”ê°€ & í”¼íŠ¸ë‹ˆìŠ¤',
+           'ìš”ê°€ í´ë˜ìŠ¤ ' || i,
            TO_DATE('2025-09-01','YYYY-MM-DD'), TO_DATE('2025-09-30','YYYY-MM-DD'),
            TO_DATE('2025-10-01','YYYY-MM-DD'), TO_DATE('2026-01-31','YYYY-MM-DD'),
-           '¸¶À½°ú ¸öÀÇ ±ÕÇüÀ» À§ÇÑ ¿ä°¡ Å¬·¡½º ' || i,
+           'ë§ˆìŒê³¼ ëª¸ì˜ ê· í˜•ì„ ìœ„í•œ ìš”ê°€ í´ë˜ìŠ¤ ' || i,
            10 + MOD(i, 10));
   END LOOP;
 
   FOR i IN 1..200 LOOP
     INSERT INTO class(class_id, category, class_name, registration_start, registration_end, start_date, end_date, class_description, class_capacity)
-    VALUES(class_id_seq.NEXTVAL, 'À¯»ê¼Ò & ´í½º',
-           '´í½º Å¬·¡½º ' || i,
+    VALUES(class_id_seq.NEXTVAL, 'ìœ ì‚°ì†Œ & ëŒ„ìŠ¤',
+           'ëŒ„ìŠ¤ í´ë˜ìŠ¤ ' || i,
            TO_DATE('2025-09-01','YYYY-MM-DD'), TO_DATE('2025-09-30','YYYY-MM-DD'),
            TO_DATE('2025-10-01','YYYY-MM-DD'), TO_DATE('2026-01-31','YYYY-MM-DD'),
-           '½ÉÆó Áö±¸·Â Çâ»ó°ú Àç¹Ì¸¦ À§ÇÑ ´í½º Å¬·¡½º ' || i,
+           'ì‹¬í ì§€êµ¬ë ¥ í–¥ìƒê³¼ ì¬ë¯¸ë¥¼ ìœ„í•œ ëŒ„ìŠ¤ í´ë˜ìŠ¤ ' || i,
            20 + MOD(i, 10));
   END LOOP;
 END;
@@ -117,8 +117,9 @@ END;
 
 
 
---?ˆ˜ê°? ?‹ ì²? ?…Œ?´ë¸?(?šŒ?› - ?ˆ˜?—… ?—°ê²?)
---?ˆ˜ê°•ì‹ ì²??•„?´?””(?‹œ???Š¤)
+
+--?ï¿½ï¿½ï¿½? ?ï¿½ï¿½ï¿½? ?ï¿½ï¿½?ï¿½ï¿½ï¿½?(?ï¿½ï¿½?ï¿½ï¿½ - ?ï¿½ï¿½?ï¿½ï¿½ ?ï¿½ï¿½ï¿½?)
+--?ï¿½ï¿½ê°•ì‹ ï¿½??ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½(?ï¿½ï¿½???ï¿½ï¿½)
 DROP SEQUENCE enrollment_id_seq;
 CREATE SEQUENCE enrollment_id_seq
   INCREMENT BY 1
@@ -129,16 +130,16 @@ CREATE SEQUENCE enrollment_id_seq
 
 DROP TABLE enrollment CASCADE CONSTRAINTS purge;
 CREATE TABLE enrollment (
-  enrollment_id NUMBER(6, 0) CONSTRAINT enrollment_enrollment_id_pk PRIMARY KEY, --?‹ ì²??•„?´?””(pk, seq)
-  member_id NUMBER(6, 0) NOT NULL, --?šŒ?›?•„?´?””(not null)
-  class_id NUMBER(6, 0) NOT NULL, --?ˆ˜?—…?•„?´?””(not null)
-  enrollment_date DATE DEFAULT SYSDATE NOT NULL, --?ˆ˜?—…?‹ ì²??‚ ì§?(default sysdate)
-  CONSTRAINT enrollment_member_fk FOREIGN KEY (member_id) REFERENCES member(member_id), --?™¸?˜?‚¤
-  CONSTRAINT enrollment_class_fk FOREIGN KEY (class_id) REFERENCES class(class_id), --?™¸?˜?‚¤
-  CONSTRAINT member_class_uq UNIQUE (member_id, class_id) --ê°™ì? ?ˆ˜?—… ì¤‘ë³µ ë°©ì?
+  enrollment_id NUMBER(6, 0) CONSTRAINT enrollment_enrollment_id_pk PRIMARY KEY, --?ï¿½ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½(pk, seq)
+  member_id NUMBER(6, 0) NOT NULL, --?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½(not null)
+  class_id NUMBER(6, 0) NOT NULL, --?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½(not null)
+  enrollment_date DATE DEFAULT SYSDATE NOT NULL, --?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ï¿½??ï¿½ï¿½ï¿½?(default sysdate)
+  CONSTRAINT enrollment_member_fk FOREIGN KEY (member_id) REFERENCES member(member_id), --?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½
+  CONSTRAINT enrollment_class_fk FOREIGN KEY (class_id) REFERENCES class(class_id), --?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½
+  CONSTRAINT member_class_uq UNIQUE (member_id, class_id) --ê°™ï¿½? ?ï¿½ï¿½?ï¿½ï¿½ ì¤‘ë³µ ë°©ï¿½?
 );
 
--- ?ˆ˜ê°•ì‹ ì²? ?ƒ˜?”Œ?°?´?„° 10ê°?
+-- ?ï¿½ï¿½ê°•ì‹ ï¿½? ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ 10ï¿½?
 INSERT INTO enrollment (enrollment_id, member_id, class_id, enrollment_date) VALUES
 (enrollment_id_seq.NEXTVAL, 1, 1, SYSDATE);
 
@@ -169,31 +170,31 @@ INSERT INTO enrollment (enrollment_id, member_id, class_id, enrollment_date) VAL
 INSERT INTO enrollment (enrollment_id, member_id, class_id, enrollment_date) VALUES
 (enrollment_id_seq.NEXTVAL, 10, 10, SYSDATE);
 
--- ?ƒˆë¡œìš´ ?ˆ˜ê°•ì‹ ì²? ?ƒ˜?”Œ?°?´?„° 10ê°?
+-- ?ï¿½ï¿½ë¡œìš´ ?ï¿½ï¿½ê°•ì‹ ï¿½? ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ 10ï¿½?
 INSERT INTO enrollment (enrollment_id, member_id, class_id, enrollment_date) VALUES
-(enrollment_id_seq.NEXTVAL, 1, 2, SYSDATE); -- ?™ê¸¸ë™ ?†’ PT ë§ì¶¤ ?”„ë¡œê·¸?¨
+(enrollment_id_seq.NEXTVAL, 1, 2, SYSDATE); -- ?ï¿½ï¿½ê¸¸ë™ ?ï¿½ï¿½ PT ë§ì¶¤ ?ï¿½ï¿½ë¡œê·¸?ï¿½ï¿½
 INSERT INTO enrollment (enrollment_id, member_id, class_id, enrollment_date) VALUES
-(enrollment_id_seq.NEXTVAL, 1, 5, SYSDATE); -- ?™ê¸¸ë™ ?†’ ?•„?¼?…Œ?Š¤
+(enrollment_id_seq.NEXTVAL, 1, 5, SYSDATE); -- ?ï¿½ï¿½ê¸¸ë™ ?ï¿½ï¿½ ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½
 INSERT INTO enrollment (enrollment_id, member_id, class_id, enrollment_date) VALUES
-(enrollment_id_seq.NEXTVAL, 2, 1, SYSDATE); -- ê¹?ì² ìˆ˜ ?†’ ?—¬?Š¤ ì´ˆê¸‰
+(enrollment_id_seq.NEXTVAL, 2, 1, SYSDATE); -- ï¿½?ì² ìˆ˜ ?ï¿½ï¿½ ?ï¿½ï¿½?ï¿½ï¿½ ì´ˆê¸‰
 INSERT INTO enrollment (enrollment_id, member_id, class_id, enrollment_date) VALUES
-(enrollment_id_seq.NEXTVAL, 2, 3, SYSDATE); -- ê¹?ì² ìˆ˜ ?†’ ?š”ê°? ì´ˆê¸‰
+(enrollment_id_seq.NEXTVAL, 2, 3, SYSDATE); -- ï¿½?ì² ìˆ˜ ?ï¿½ï¿½ ?ï¿½ï¿½ï¿½? ì´ˆê¸‰
 INSERT INTO enrollment (enrollment_id, member_id, class_id, enrollment_date) VALUES
-(enrollment_id_seq.NEXTVAL, 3, 6, SYSDATE); -- ?´?˜?¬ ?†’ ?Š¤?”¼?‹
+(enrollment_id_seq.NEXTVAL, 3, 6, SYSDATE); -- ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ ?ï¿½ï¿½ ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½
 INSERT INTO enrollment (enrollment_id, member_id, class_id, enrollment_date) VALUES
-(enrollment_id_seq.NEXTVAL, 4, 2, SYSDATE); -- ë°•ë?¼ìˆ˜ ?†’ PT ë§ì¶¤ ?”„ë¡œê·¸?¨
+(enrollment_id_seq.NEXTVAL, 4, 2, SYSDATE); -- ë°•ï¿½?ï¿½ìˆ˜ ?ï¿½ï¿½ PT ë§ì¶¤ ?ï¿½ï¿½ë¡œê·¸?ï¿½ï¿½
 INSERT INTO enrollment (enrollment_id, member_id, class_id, enrollment_date) VALUES
-(enrollment_id_seq.NEXTVAL, 5, 4, SYSDATE); -- ìµœì??? ?†’ ?š”ê°? ì¤‘ê¸‰
+(enrollment_id_seq.NEXTVAL, 5, 4, SYSDATE); -- ìµœï¿½??? ?ï¿½ï¿½ ?ï¿½ï¿½ï¿½? ì¤‘ê¸‰
 INSERT INTO enrollment (enrollment_id, member_id, class_id, enrollment_date) VALUES
-(enrollment_id_seq.NEXTVAL, 6, 3, SYSDATE); -- ? •?š°?„± ?†’ ?š”ê°? ì´ˆê¸‰
+(enrollment_id_seq.NEXTVAL, 6, 3, SYSDATE); -- ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ ?ï¿½ï¿½ ?ï¿½ï¿½ï¿½? ì´ˆê¸‰
 INSERT INTO enrollment (enrollment_id, member_id, class_id, enrollment_date) VALUES
-(enrollment_id_seq.NEXTVAL, 7, 5, SYSDATE); -- ?•œê°??¸ ?†’ ?•„?¼?…Œ?Š¤
+(enrollment_id_seq.NEXTVAL, 7, 5, SYSDATE); -- ?ï¿½ï¿½ï¿½??ï¿½ï¿½ ?ï¿½ï¿½ ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½
 INSERT INTO enrollment (enrollment_id, member_id, class_id, enrollment_date) VALUES
-(enrollment_id_seq.NEXTVAL, 8, 7, SYSDATE); -- ?˜¤?„¸?›ˆ ?†’ ?Š¤?Š¸? ˆì¹? / ë¦´ë ‰?Š¤
+(enrollment_id_seq.NEXTVAL, 8, 7, SYSDATE); -- ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ ?ï¿½ï¿½ ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ï¿½? / ë¦´ë ‰?ï¿½ï¿½
 
 
---ì¶œì„?…Œ?´ë¸?
---ì¶œì„?•„?´?””(?‹œ???Š¤)
+--ì¶œì„?ï¿½ï¿½?ï¿½ï¿½ï¿½?
+--ì¶œì„?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½(?ï¿½ï¿½???ï¿½ï¿½)
 DROP SEQUENCE attendance_id_seq;
 CREATE SEQUENCE attendance_id_seq
   INCREMENT BY 1
@@ -205,8 +206,8 @@ CREATE SEQUENCE attendance_id_seq
 DROP TABLE attendance CASCADE CONSTRAINTS purge;
 CREATE TABLE attendance(
   attendance_id NUMBER(6, 0) CONSTRAINT attendance_attendance_id_pk PRIMARY KEY, --ì¶œì„ë²ˆí˜¸(pk, seq)
-  member_id NUMBER(6, 0) NOT NULL, --?šŒ?›?•„?´?””
-  check_in_time DATE DEFAULT SYSDATE NOT NULL, --?…?‹¤?‹œê°?
-  check_out_time DATE, --?‡´?‹¤?‹œê°?
-  CONSTRAINT attendance_member_fk FOREIGN KEY (member_id) REFERENCES member(member_id) --?™¸?˜?‚¤
+  member_id NUMBER(6, 0) NOT NULL, --?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½
+  check_in_time DATE DEFAULT SYSDATE NOT NULL, --?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ï¿½?
+  check_out_time DATE, --?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ï¿½?
+  CONSTRAINT attendance_member_fk FOREIGN KEY (member_id) REFERENCES member(member_id) --?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½
 );
