@@ -1,0 +1,51 @@
+<if 문제>
+create table emp10
+as
+  select employee_id, last_name, department_id
+  from   employees
+  where  employee_id = 0;
+
+emp20
+emp30
+emp40
+emp50
+emp00
+
+부서번호10->emp10, 부서번호20->emp20 ....
+
+사원번호를 입력(치환변수& 사용)할 경우
+부서별로 구분하여 각각의 테이블에 입력하는 PL/SQL 블록을 작성하시오.
+단, 해당 부서가 없는 사원은 emp00 테이블에 입력하시오.
+
+DECLARE
+  v_empid  employees.employee_id%TYPE;
+  v_name   employees.last_name%TYPE;
+  v_deptid employees.department_id%TYPE;
+BEGIN
+  SELECT employee_id, last_name, department_id
+  INTO   v_empid,     v_name,    v_deptid
+  FROM   employees
+  WHERE  employee_id = &id;
+
+  IF    v_deptid = 10 THEN
+    INSERT INTO emp10(employee_id, last_name, department_id)
+    VALUES           (v_empid,     v_name,    v_deptid);
+  ELSIF v_deptid = 20 THEN
+    INSERT INTO emp20(employee_id, last_name, department_id)
+    VALUES           (v_empid,     v_name,    v_deptid);
+  ELSIF v_deptid = 30 THEN
+    INSERT INTO emp30(employee_id, last_name, department_id)
+    VALUES           (v_empid,     v_name,    v_deptid);
+  ELSIF v_deptid = 40 THEN
+    INSERT INTO emp40(employee_id, last_name, department_id)
+    VALUES           (v_empid,     v_name,    v_deptid);
+  ELSIF v_deptid = 50 THEN
+    INSERT INTO emp50(employee_id, last_name, department_id)
+    VALUES           (v_empid,     v_name,    v_deptid);
+  ELSE
+    INSERT INTO emp00(employee_id, last_name, department_id)
+    VALUES           (v_empid,     v_name,    v_deptid);
+  END IF;
+
+END;
+/

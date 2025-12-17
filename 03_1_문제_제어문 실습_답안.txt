@@ -1,0 +1,89 @@
+1. 1부터 10까지 최종 합계 값을 구하는 PL/SQL을 작성하시오.
+
+DECLARE
+  v_sum  NUMBER :=0;
+BEGIN
+  FOR i in 1..10 LOOP
+    v_sum := v_sum+i;
+  END LOOP;
+  DBMS_OUTPUT.PUT_LINE(v_sum);
+END;
+/
+
+2. 1부터 10까지 짝수 최종 합계 값을 구하는 PL/SQL을 작성하시오. (if문 사용)
+DECLARE
+  v_sum  NUMBER :=0;
+BEGIN
+  FOR i in 1..10 LOOP
+    IF MOD(i, 2) = 0 then
+      v_sum := v_sum+i;
+    END IF;
+  END LOOP;
+  DBMS_OUTPUT.PUT_LINE(v_sum);
+END;
+/
+
+3. 다음과 같이 출력되도록 하시오.
+*
+**
+***
+****
+*****
+DECLARE
+  v_text VARCHAR2(10);
+BEGIN
+  FOR i IN 1..5 LOOP
+    v_text := v_text ||'*';
+    DBMS_OUTPUT.PUT_LINE(v_text);
+  END LOOP;
+END;
+/
+4. 치환변수(&)를 사용하면 숫자를 입력하면 해당 구구단이 출력되도록 하시오.
+예) 2 입력시
+2 * 1 = 2
+2 * 2 = 4
+2 * 3 = 6
+2 * 4 = 8
+2 * 5 = 10
+2 * 6 = 12
+2 * 7 = 14
+2 * 8 = 16
+2 * 9 = 18
+
+DECLARE
+ v_gu number := &nu;
+BEGIN
+ FOR i IN 1..9 LOOP
+  DBMS_OUTPUT.PUT_LINE( v_gu || '*' || i || '=' || v_gu*i); 
+ END LOOP;
+END;
+/
+
+5. 구구단 2~9단까지 출력되도록 하시오.
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('***구구단***');
+  FOR i IN 2..9 LOOP
+    DBMS_OUTPUT.PUT_LINE('-----------------------------');
+    DBMS_OUTPUT.PUT_LINE( i || ' 단');
+    FOR j IN 1..9 LOOP 
+      DBMS_OUTPUT.PUT_LINE(i || ' * ' || j || ' = ' || (i * j));      
+    END LOOP;
+  END LOOP;
+END;
+/
+
+6. 구구단 1~9단까지 출력되도록 하시오.
+   (단, 홀수단 출력)
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('***구구단***');
+  FOR i IN 2..9 LOOP
+    if mod (i,2) = 1 then 
+      DBMS_OUTPUT.PUT_LINE('-----------------------');
+      DBMS_OUTPUT.PUT_LINE( i || ' 단');
+      FOR j IN 1..9 LOOP 
+        DBMS_OUTPUT.PUT_LINE(i || ' * ' || j || ' = ' || (i * j));      
+      END LOOP;
+    END IF;
+  END LOOP;
+END;
+/

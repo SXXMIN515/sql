@@ -1,0 +1,88 @@
+create table test01(empid, ename, hiredate)
+as
+  select employee_id, last_name, hire_date
+  from   employees
+  where  employee_id = 0;
+
+사원번호를 입력하는 경우(&치환변수 사용)
+사원테이블(employees)로 부터
+해당사원의 
+사원번호(employee_id), 사원이름(last_name), 입사일(hire_date)을 가져와
+test01 테이블에 입력하는 PL/SQL을 작성하시오.
+
+힌트)
+  1. SELECT employee_id, last_name, hire_date ~
+  2. INSERT INTO test01 ~
+
+
+<if 문제>
+create table emp10
+as
+  select employee_id, last_name, department_id
+  from   employees
+  where  employee_id = 0;
+
+emp20
+emp30
+emp40
+emp50
+emp00
+
+부서번호10->emp10, 부서번호20->emp20 ....
+
+사원번호를 입력(치환변수& 사용)할 경우
+부서별로 구분하여 각각의 테이블에 입력하는 PL/SQL 블록을 작성하시오.
+단, 해당 부서가 없는 사원은 emp00 테이블에 입력하시오.
+
+
+4.
+drop table test01 purge;
+drop table test02 purge;
+
+create table test01(empid, ename, hiredate)
+as
+  select employee_id, last_name, hire_date
+  from   employees
+  where  employee_id = 0;
+
+create table test02(empid, ename, hiredate)
+as
+  select employee_id, last_name, hire_date
+  from   employees
+  where  employee_id = 0;
+
+employees 테이블에서 사원번호를 입력(치환변수사용&)할 경우
+사원들 중 2005년 이후(2005년 포함)에 입사한 사원의 사원번호, 
+사원이름, 입사일을 test01 테이블에 입력하고, 2005년 이전에 
+입사한 사원의 사원번호,사원이름,입사일을 test02 테이블에 입력하시오.
+
+힌트)
+1. 사원번호를 입력할 경우 사원정보를 가져온다.(select)
+2. 조건에 맞는 테이블에 가져온 사원정보를 입력한다. (insert)
+
+5.
+급여가  5000이하이면 20% 인상된 급여
+급여가 10000이하이면 15% 인상된 급여
+급여가 15000이하이면 10% 인상된 급여
+급여가 15001이상이면 급여 인상없음
+
+사원번호를 입력(치환변수)하면 사원이름, 급여, 인상된 급여가 출력되도록 PL/SQL 블록을 생성하시오.
+
+6.
+사원번호를 입력할 경우
+해당 사원을 삭제하는 PL/SQL을 작성하시오.
+단, 해당사원이 없는 경우 "해당사원이 없습니다." 출력
+
+힌트> SQL%NOTFOUND
+
+7.
+직원들이 사번, 급여 증가치(%)만 입력하면 Employees테이블에 쉽게 사원의 급여를 갱신할 수 있도록 PL/SQL을 작성하세요.
+만약 입력한 사원이 없는 경우에는 ‘No search employee!!’라는 메시지를 출력하세요.
+
+급여 = 급여*(1+급여증가치/100)
+or
+급여 = 급여+(급여*(급여증가치/100))
+
+힌트> SQL%NOTFOUND
+
+

@@ -1,0 +1,95 @@
+create table aaa
+(a number(3));
+
+create table bbb
+(b number(3));
+
+1.
+aaa 테이블에 1부터10까지 입력되도록 PL/SQL 블록을 작성하시오.
+단, insert 문은 1번에 사용
+
+힌트) FOR i IN 1..10 LOOP
+       ~
+    END LOOP
+
+BEGIN
+  FOR i in 1..10 LOOP
+    INSERT INTO aaa(a)
+    VALUES (i);
+  END LOOP;
+END;
+/
+2.
+bbb 테이블에 1부터 10까지 최종 합계 값을 PL/SQL 블록으로 작성하여 입력하시오.
+힌트)
+~
+v_sum := v_sum + i;
+~
+
+DECLARE
+  v_sum  NUMBER :=0;
+BEGIN
+  FOR i in 1..10 LOOP
+    v_sum := v_sum+i;
+  END LOOP;
+  INSERT INTO bbb(b)
+  VALUES (v_sum);
+END;
+/
+
+3
+aaa 테이블에 1부터 10까지 짝수만 입력되도록 PL/SQL 블록을 작성하시오.
+단, insert 문은 한번 사용, if문 사용
+힌트)
+IF MOD(i,2) = 0 THEN   -> java는 i%2 == 0
+~
+
+BEGIN
+  FOR i in 1..10 LOOP
+    IF MOD(i,2) = 0 THEN
+      INSERT INTO aaa(a)
+      VALUES (i);
+    END IF;
+  END LOOP;
+END;
+/
+
+4.
+bbb 테이블에 1부터 10까지 짝수 최종 합계 값을 PL/SQL 블록으로 작성하여 입력하시오.
+단, if문 사용
+힌트)
+IF MOD(i,2) = 0 THEN
+~
+
+DECLARE
+  v_sum  NUMBER :=0;
+BEGIN
+  FOR i in 1..10 LOOP
+    IF MOD(i,2) = 0 THEN
+      v_sum := v_sum+i;
+    END IF;
+  END LOOP;
+  INSERT INTO bbb(b)
+  VALUES (v_sum);
+END;
+/
+
+5.
+1부터 10까지에서 짝수의 합계는 aaa 테이블에, 홀수의 합계는 bbb 테이블에 
+입력되도록 PL/SQL 블록을 작성하시오. (단, if 문 사용)
+DECLARE
+  e_sum  NUMBER :=0;
+  o_sum  NUMBER :=0;
+BEGIN
+  FOR i in 1..10 LOOP
+    IF MOD(i,2) = 0 THEN
+      e_sum := e_sum+i;
+    ELSE
+      o_sum := o_sum+i;
+    END IF;
+  END LOOP;
+  INSERT INTO aaa(a)
+  VALUES (e_sum);
+  INSERT INTO bbb(b)
+  VALUES (o_sum);
+END;

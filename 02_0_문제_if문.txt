@@ -1,0 +1,21 @@
+<if 문제>
+create table emp10
+as
+  select employee_id, last_name, department_id
+  from   employees
+  where  employee_id = 0;
+
+emp20
+emp30
+emp40
+emp50
+emp00
+
+부서번호10->emp10, 부서번호20->emp20 ....
+
+사원번호를 입력(치환변수& 사용)할 경우
+부서별로 구분하여 각각의 테이블에 입력하는 PL/SQL 블록을 작성하시오.
+단, 해당 부서가 없는 사원은 emp00 테이블에 입력하시오.
+
+
+

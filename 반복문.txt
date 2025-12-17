@@ -1,0 +1,28 @@
+declare
+    cursor profbonus
+    is
+    select profno, bonus, deptno
+    from professor
+    where deptno = 101;
+    v_profno professor.profno%type; 
+    v_bonus professor.bonus%type;
+    v_deptno professor.deptno%type;
+begin
+    open profbonus;
+      loop
+       fetch profbonus into v_profno, v_bonus, v_deptno;
+        exit when profbonus%notfound; --종료조건.
+      select bonus
+      into v_bonus
+      from professor
+      where profno = v_profno;
+      if v_bonus IS NULL then 
+      v_bonus := 30;
+      elsif v_bonus IS NOT NULL then
+      v_bonus := v_bonus * 1.1;
+      end if;
+      dbms_output.put_line(v_profno || '의 보너스 ' || v_bonus);
+    end loop;
+    close profbonus;
+    dbms_output.put_line('end');
+end;

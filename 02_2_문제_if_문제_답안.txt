@@ -1,0 +1,115 @@
+4.
+drop table test01 purge;
+drop table test02 purge;
+
+create table test01(empid, ename, hiredate)
+as
+  select employee_id, last_name, hire_date
+  from   employees
+  where  employee_id = 0;
+
+create table test02(empid, ename, hiredate)
+as
+  select employee_id, last_name, hire_date
+  from   employees
+  where  employee_id = 0;
+
+employees 테이블에서 사원번호를 입력(치환변수사용&)할 경우
+사원들 중 2005년 이후(2005년 포함)에 입사한 사원의 사원번호, 
+사원이름, 입사일을 test01 테이블에 입력하고, 2005년 이전에 
+입사한 사원의 사원번호,사원이름,입사일을 test02 테이블에 입력하시오.
+
+DECLARE
+  v_empno employees.employee_id%TYPE;
+  v_name  employees.last_name%TYPE;
+  v_date  employees.hire_date%TYPE;
+BEGIN
+  SELECT employee_id, last_name, hire_date
+  INTO   v_empno, v_name, v_date
+  FROM   employees
+  WHERE  employee_id = &id;
+
+  IF TO_CHAR(v_date, 'YYYY') >= '2005' THEN
+    INSERT INTO test01
+    VALUES (v_empno, v_name, v_date);
+  ELSE
+    INSERT INTO test02
+    VALUES (v_empno, v_name, v_date);
+  END IF;
+END;
+/
+
+
+5.
+급여가  5000이하이면 20% 인상된 급여
+급여가 10000이하이면 15% 인상된 급여
+급여가 15000이하이면 10% 인상된 급여
+급여가 15001이상이면 급여 인상없음
+
+사원번호를 입력(치환변수)하면 사원이름, 급여, 인상된 급여가 출력되도록 PL/SQL 블록을 생성하시오.
+DECLARE
+    v_name      employees.last_name%TYPE;
+    v_salary    employees.salary%TYPE;
+    v_upsalary  employees.salary%TYPE;
+BEGIN
+    SELECT last_name, salary
+    INTO   v_name, v_salary
+    FROM   employees
+    WHERE  employee_id= &id;
+    
+    IF v_salary < 5000     THEN
+        v_upsalary := v_salary * 1.2;
+    ELSIF v_salary < 10000 THEN
+        v_upsalary := v_salary * 1.15;
+    ELSIF v_salary < 15000 THEN
+        v_upsalary := v_salary * 1.1;
+    ELSE 
+        v_upsalary := v_salary
+    END IF;
+    
+    DBMS_OUTPUT.PUT_LINE(v_name ||' '|| v_salary ||' '|| v_upsalary);
+END;
+/
+6.
+사원번호를 입력할 경우
+해당 사원을 삭제하는 PL/SQL을 작성하시오.
+단, 해당사원이 없는 경우 "해당사원이 없습니다." 출력
+BEGIN
+  DELETE FROM employees 
+  WHERE  employee_id = &id;
+
+  IF SQL%NOTFOUND THEN
+    DBMS_OUTPUT.PUT_LINE('해당사원이 없습니다.');
+  END IF;
+END;
+
+or
+
+IF SQL%ROWCOUNT = 0 THEN
+  DBMS_OUTPUT.PUT_LINE('해당사원이 없습니다.');
+END IF;
+
+
+7.
+직원들이 사번, 급여 증가치(%)만 입력하면 Employees테이블에 쉽게 사원의 급여를 갱신할 수 있도록 PL/SQL을 작성하세요.
+만약 입력한 사원이 없는 경우에는 ‘No search employee!!’라는 메시지를 출력하세요.
+
+DECLARE
+  v_id    employees.employee_id%type = &id;
+  v_insal NUMBER(10) := &insal;
+BEGIN
+  UPDATE employees
+  SET    salary = salary*(1+v_insal/100)
+  WHERE  employee_id = v_id;
+
+  IF SQL%NOTFOUND THEN
+    DBMS_OUTPUT.PUT_LINE('No search employee!!');
+  END IF;
+END;
+/
+
+
+
+급여 = 급여*(1+급여증가치/100)
+or
+급여 = 급여+(급여*(급여증가치/100))
