@@ -676,3 +676,636 @@ BEGIN
       to_char(v_myrec.v_hire_date) ||' '|| to_char(v_myrec.v_sal));
 END;
 /
+
+create table retired_emps (empno, ename, job, mgr, hiredate,
+                           leavedate, sal, comm, deptno)
+as
+  select employee_id, last_name, job_id, manager_id, hire_date,
+         sysdate, salary, commission_pct, department_id
+  from   employees
+  where  employee_id = 0;
+  
+DECLARE
+  v_employee_number number:= 124;
+  v_emp_rec employees%ROWTYPE;
+BEGIN
+  SELECT * 
+  INTO   v_emp_rec 
+  FROM employees
+  WHERE employee_id = v_employee_number;
+
+  INSERT INTO retired_emps(empno, ename, job, mgr,
+  hiredate, leavedate, sal, comm, deptno) 
+  VALUES (v_emp_rec.employee_id, 
+          v_emp_rec.last_name, 
+          v_emp_rec.job_id, 
+          v_emp_rec.manager_id,
+          v_emp_rec.hire_date,
+          SYSDATE, 
+          v_emp_rec.salary,
+          v_emp_rec.commission_pct, 
+          v_emp_rec.department_id);
+END;
+/  
+
+select * from retired_emps;
+
+SET SERVEROUTPUT ON;
+DECLARE
+  TYPE dept_table_type IS TABLE OF
+    departments%ROWTYPE INDEX BY PLS_INTEGER;
+    
+  dept_table dept_table_type;
+BEGIN
+  SELECT *
+  INTO   dept_table(3)
+  FROM   departments
+  WHERE  department_id = 10;
+  
+  DBMS_OUTPUT.PUT_LINE(dept_table(3).department_id || ' '  ||
+                       dept_table(3).department_name || ' '  ||
+                       dept_table(3).manager_id);
+END;
+/
+
+DECLARE
+  TYPE emp_table_type IS TABLE OF
+    employees%ROWTYPE INDEX BY PLS_INTEGER;
+  my_emp_table emp_table_type;
+  max_count NUMBER(3) := 104;
+BEGIN
+  FOR i IN 100 .. max_count LOOP
+    SELECT *
+    INTO   my_emp_table(i)
+    FROM   employees
+    WHERE  employee_id = i;
+  END LOOP;
+  
+  FOR i IN my_emp_table.FIRST .. my_emp_table.LAST LOOP
+    DBMS_OUTPUT.PUT_LINE(my_emp_table(i).last_name);
+  END LOOP;  
+END;
+/
+
+DECLARE
+  TYPE dept_table_type IS TABLE OF
+    NUMBER INDEX BY BINARY_INTEGER;
+    
+  dept_table dept_table_type;
+  v_total NUMBER;
+BEGIN
+  FOR i IN 1 .. 50 LOOP
+    dept_table(i) := i;
+  END LOOP;  
+
+  v_total := dept_table.COUNT;
+  
+  DBMS_OUTPUT.PUT_LINE(v_total);
+  DBMS_OUTPUT.PUT_LINE(dept_table(20));
+END;
+/
+
+CREATE TABLE emp(empid, empname)
+AS
+  SELECT employee_id, last_name
+  FROM   employees
+  WHERE  employee_id = 0;
+
+DECLARE 
+  TYPE emp_table_type IS TABLE OF 
+    VARCHAR2(13)  INDEX BY PLS_INTEGER; 
+  emp_table  emp_table_type;
+BEGIN
+  emp_table(1) := 'SCOTT';
+  emp_table(3) := 'JONE';
+  DBMS_OUTPUT.PUT_LINE(emp_table(1));
+  DBMS_OUTPUT.PUT_LINE(emp_table(3));
+  IF emp_table.EXISTS(1) THEN
+    INSERT INTO emp (empid, empname)
+    VALUES (100, 'Row 1 있음');
+  ELSE
+    INSERT INTO emp (empid, empname)
+    VALUES (100, 'Row 1 없음');
+  END IF;
+
+  IF emp_table.EXISTS(2) THEN
+    INSERT INTO emp (empid, empname)
+    VALUES (200, 'Row 2 있음');
+  ELSE
+    INSERT INTO emp (empid, empname)
+    VALUES (200, 'Row 2 없음');     
+  END IF;
+END;
+/
+
+select * from emp;
+
+drop table emp00 purge;
+
+--<record, if 문제>
+create table emp00
+as
+  select *
+  from   employees
+  where  employee_id = 0;
+--emp10
+--emp20
+--emp30
+--emp40
+--emp50
+--emp00
+
+--부서번호10->emp10, 부서번호20->emp20 ....
+--
+--사원번호를 입력(치환변수& 사용)할 경우
+--부서별로 구분하여 각각의 테이블에 입력하는 PL/SQL 블록을 작성하시오.
+--단, 해당 부서가 없는 사원은 emp00 테이블에 입력하시오.
+DECLARE
+  emp_rec employees%ROWTYPE;
+BEGIN
+  SELECT *
+  INTO   emp_rec
+  FROM   employees
+  WHERE  employee_id = &id;
+
+  IF    emp_rec.department_id = 10 THEN
+    INSERT INTO emp10
+    VALUES      emp_rec;
+  ELSIF emp_rec.department_id = 20 THEN
+    INSERT INTO emp20
+    VALUES      emp_rec;
+  ELSIF emp_rec.department_id = 30 THEN
+    INSERT INTO emp30
+    VALUES      emp_rec;
+  ELSIF emp_rec.department_id = 40 THEN
+    INSERT INTO emp40
+    VALUES      emp_rec;
+  ELSIF emp_rec.department_id = 50 THEN
+    INSERT INTO emp50
+    VALUES      emp_rec;
+  ELSE
+    INSERT INTO emp00
+    VALUES      emp_rec;
+  END IF;
+
+END;
+/
+
+select * from emp50;
+
+DECLARE
+  CURSOR c_emp_cursor IS
+    SELECT employee_id, last_name
+    FROM   employees
+    WHERE  department_id = 30;
+    
+  v_empno employees.employee_id%TYPE;
+  v_lname employees.last_name%TYPE;
+BEGIN
+  OPEN c_emp_cursor;
+  FETCH c_emp_cursor INTO v_empno, v_lname;
+  
+  DBMS_OUTPUT.PUT_LINE(v_empno || ' ' || v_lname);
+END;
+/
+
+DECLARE
+  CURSOR c_emp_cursor IS
+    SELECT employee_id, last_name
+    FROM   employees
+    WHERE  department_id = 30;
+    
+  v_empno employees.employee_id%TYPE;
+  v_lname employees.last_name%TYPE;
+BEGIN
+  OPEN c_emp_cursor;
+  LOOP
+    FETCH c_emp_cursor INTO v_empno, v_lname;
+    EXIT WHEN c_emp_cursor%NOTFOUND;
+    DBMS_OUTPUT.PUT_LINE(v_empno || ' ' || v_lname);
+  END LOOP;  
+  CLOSE c_emp_cursor;
+END;
+/
+
+-- 커서 사용 이유 : 변수에는 값을 하나만 담을 수 있는데 여러 개 담을 수 있기 때문이다.
+DECLARE
+  CURSOR c_emp_cursor IS
+    SELECT employee_id, last_name
+    FROM   employees
+    WHERE  department_id = 30;
+    
+  v_emp_record c_emp_cursor%ROWTYPE;
+
+BEGIN
+  OPEN c_emp_cursor;
+  LOOP
+    FETCH c_emp_cursor INTO v_emp_record;
+    EXIT WHEN c_emp_cursor%NOTFOUND;
+    DBMS_OUTPUT.PUT_LINE(v_emp_record.employee_id || ' ' || v_emp_record.last_name);
+  END LOOP;  
+  CLOSE c_emp_cursor;
+END;
+/
+
+create table temp_list (empid, empname)
+as
+ select employee_id, last_name
+ from   employees
+ where  employee_id = 0;
+
+--1.
+--부서번호를 입력(&사용)하면 
+--소속된 사원의 사원번호, 사원이름, 부서번호를 출력하는 PL/SQL을 작성하시오.
+--(단, CURSOR 사용)
+DECLARE
+  CURSOR c_emp_cursor IS
+    SELECT employee_id, last_name, department_id
+    FROM   employees
+    WHERE  department_id = &id;
+  
+  v_rec    c_emp_cursor%ROWTYPE;  
+BEGIN
+  OPEN c_emp_cursor;
+  LOOP
+    FETCH c_emp_cursor INTO v_rec;
+    EXIT WHEN c_emp_cursor%NOTFOUND;
+    DBMS_OUTPUT.PUT_LINE(v_rec.employee_id || ' ' || v_rec.last_name || ' ' || v_rec.department_id);
+  END LOOP;  
+  CLOSE c_emp_cursor;
+END;
+/
+
+--2.
+--부서번호를 입력할 경우(&치환변수 사용)
+--해당하는 부서의 사원이름, 입사일자, 부서명을 출력하시오.
+--(단, cursor 사용)
+DECLARE
+  CURSOR c_emp_cursor IS
+    SELECT e.last_name
+          ,e.hire_date
+          ,d.department_name
+    FROM   employees e
+    JOIN   departments d
+      ON   e.department_id = d.department_id
+    WHERE  e.department_id = &id;
+  
+  v_rec    c_emp_cursor%ROWTYPE;  
+BEGIN
+  OPEN c_emp_cursor;
+  LOOP
+    FETCH c_emp_cursor INTO v_rec;
+    EXIT WHEN c_emp_cursor%NOTFOUND;
+    DBMS_OUTPUT.PUT_LINE(v_rec.last_name || ' ' || v_rec.hire_date || ' ' || v_rec.department_name);
+  END LOOP;  
+  CLOSE c_emp_cursor;
+END;
+/
+
+--3.
+--TRUNCATE TABLE test01;
+--TRUNCATE TABLE test02;
+--
+--사원(employees) 테이블에서
+--사원의 사원번호, 사원이름, 입사연도를 
+--다음 기준에 맞게 각각 test01, test02에 입력하시오.
+--
+--입사년도가 2005년(포함) 이전 입사한 사원은 test01 테이블에 입력
+--입사년도가 2005년 이후 입사한 사원은 test02 테이블에 입력
+--** 반드시 cursor 사용
+DECLARE
+  CURSOR c_emp_cursor IS
+    SELECT employee_id
+          ,last_name
+          ,hire_date
+    FROM   employees;
+  
+  v_rec    c_emp_cursor%ROWTYPE;  
+BEGIN
+  OPEN c_emp_cursor;
+  LOOP
+    FETCH c_emp_cursor INTO v_rec;
+    EXIT WHEN c_emp_cursor%NOTFOUND;
+    IF (TO_CHAR(v_rec.hire_date, 'YYYY') <= '2005') THEN
+      INSERT INTO test01
+      VALUES v_rec;
+    ELSE 
+      INSERT INTO test02
+      VALUES v_rec;
+    END IF;  
+  END LOOP;  
+  CLOSE c_emp_cursor;
+END;
+/
+
+-- FOR LOOP로 바꾸기
+DECLARE
+  CURSOR c_emp_cursor IS
+    SELECT employee_id
+          ,last_name
+          ,hire_date
+    FROM   employees;
+  
+BEGIN
+  FOR emp_rec IN c_emp_cursor LOOP
+    IF (TO_CHAR(emp_rec.hire_date, 'YYYY') <= '2005') THEN
+      INSERT INTO test01
+      VALUES emp_rec;
+    ELSE 
+      INSERT INTO test02
+      VALUES emp_rec;
+    END IF;  
+  END LOOP;  
+END;
+/
+
+select * from test01;
+
+
+--4.
+--사원(employees) 테이블에서
+--사원의 사원번호, 사원이름, 입사연도를 
+--다음 기준에 맞게 각각 test01, test02에 입력하시오.
+--
+--급여가 5000(포함) 이상이면 test01 테이블에 입력
+--급여가 5000 미만이면 test02 테이블에 입력
+--** 반드시 cursor 사용
+
+
+
+DECLARE
+  CURSOR c_emp_cursor IS
+    SELECT employee_id, last_name
+    FROM   employees
+    WHERE  department_id = 30;
+
+BEGIN
+  FOR emp_record IN c_emp_cursor LOOP 
+      DBMS_OUTPUT.PUT_LINE(emp_record.employee_id || ' ' || emp_record.last_name);
+  END LOOP;
+END;
+/
+
+BEGIN
+  FOR emp_record IN (SELECT employee_id, last_name
+                     FROM   employees
+                     WHERE  department_id = 30) LOOP 
+    DBMS_OUTPUT.PUT_LINE(emp_record.employee_id || ' ' || emp_record.last_name);
+  END LOOP;
+END;
+/
+
+DECLARE
+  v_empno employees.employee_id%TYPE;
+  v_ename employees.last_name%TYPE;
+  CURSOR emp_cursor (v_deptno NUMBER, v_job VARCHAR2) IS
+    SELECT employee_id, last_name
+    FROM   employees
+    WHERE  department_id = v_deptno
+    AND    job_id = v_job;
+BEGIN
+  OPEN emp_cursor(60, 'IT_PROG');
+    LOOP
+      FETCH emp_cursor INTO v_empno, v_ename;
+        EXIT WHEN emp_cursor%NOTFOUND;
+      DBMS_OUTPUT.PUT_LINE(TO_CHAR(v_empno)||' '|| v_ename);
+    END LOOP;
+  CLOSE emp_cursor;
+  COMMIT;
+END;
+/
+
+
+DECLARE
+  v_lname VARCHAR2(15);
+BEGIN
+  SELECT last_name
+  INTO   v_lname
+  FROM   employees;
+  
+  DBMS_OUTPUT.PUT_LINE('John''s last name is :' || v_lname);
+
+EXCEPTION
+  WHEN TOO_MANY_ROWS THEN
+    DBMS_OUTPUT.PUT_LINE('Selected multiple rows');
+
+END;
+/
+
+DECLARE
+  e_insert_excep EXCEPTION;
+  PRAGMA EXCEPTION_INIT(e_insert_excep, -01400);
+BEGIN
+  INSERT INTO departments (department_id, department_name)
+  VALUES (280, NULL);
+  
+EXCEPTION
+  WHEN e_insert_excep THEN
+    DBMS_OUTPUT.PUT_LINE('INSERT OPERATION FAILED');
+    DBMS_OUTPUT.PUT_LINE(SQLERRM);
+    DBMS_OUTPUT.PUT_LINE(SQLCODE);
+END;
+/
+
+DECLARE 
+  v_deptno NUMBER := 30;
+  v_name   VARCHAR2(20) := 'Testing';
+  e_invalid_department EXCEPTION;
+BEGIN
+  UPDATE departments
+  SET    department_name = v_name
+  WHERE  department_id = v_deptno;
+
+  IF SQL%NOTFOUND THEN
+    RAISE e_invalid_department;
+  END IF;
+  
+EXCEPTION
+  WHEN e_invalid_department THEN
+    DBMS_OUTPUT.PUT_LINE('No such department id.');
+END;
+/
+
+--1.
+--drop table emp_test;
+--
+create table emp_test
+as
+  select employee_id, last_name
+  from   employees
+  where  employee_id < 200;
+--
+--emp_test 테이블에서 사원번호를 사용(&치환변수 사용)하여 사원을 삭제하는 PL/SQL을 작성하시오.
+--(단, 사용자 정의 예외사항 사용)
+--(단, 사원이 없으면 "해당사원이 없습니다.'라는 오류메시지 발생)
+DECLARE 
+  e_invalid_employee EXCEPTION;
+BEGIN
+  DELETE FROM emp_test
+  WHERE  employee_id = &id;
+
+  IF SQL%NOTFOUND THEN
+    RAISE e_invalid_employee;
+  END IF;
+  
+EXCEPTION
+  WHEN e_invalid_employee THEN
+    DBMS_OUTPUT.PUT_LINE('해당사원이 없습니다.');
+END;
+/
+
+
+
+--2.
+--사원(employees) 테이블에서
+--사원번호를 입력(&사용)받아
+--10% 인상된 급여로 수정하는 PL/SQL을 작성하시오.
+--단, 2005년(포함) 이후 입사한 사원은 갱신하지 않고
+--"2005년 이후 입사한 사원입니다." <-exception 절 사용
+--라고 출력되도록 하시오.
+DECLARE 
+  v_empno employees.employee_id%TYPE;
+  v_hdate employees.hire_date%TYPE;
+BEGIN
+  SELECT employee_id
+        ,hire_date
+  INTO   v_empno, v_hdate      
+  FROM   employees
+  WHERE  TO_CHAR(hire_date, 'YYYY') < '2005'
+  AND    employee_id =&id;
+
+  UPDATE employees
+  SET    salary = salary * 1.1
+  WHERE  employee_id = v_empno;
+  
+EXCEPTION
+  WHEN NO_DATA_FOUND THEN
+    DBMS_OUTPUT.PUT_LINE('2005년 이후 입사한 사원입니다.');
+END;
+/
+
+
+--3.
+--사원(employees) 테이블에서
+--부서번호를 입력(&사용)받아   <- cursor 사용
+--10% 인상된 급여로 수정하는 PL/SQL을 작성하시오.
+--단, 단 해당 부서에 사원이 없으면
+--"해당 부서에는 사원이 없습니다." <-exception 절 사용
+--라고 출력되도록 하시오.
+DECLARE
+  CURSOR e_emp_cursor IS
+    SELECT employee_id, salary
+    FROM   employees
+    WHERE  department_id = &id;
+    
+  v_empno employees.employee_id%TYPE;
+  v_hdate employees.hire_date%TYPE;
+BEGIN
+  SELECT employee_id
+        ,hire_date
+  INTO   v_empno, v_hdate      
+  FROM   employees
+  WHERE  TO_CHAR(hire_date, 'YYYY') < '2005'
+  AND    department_id =&id;
+
+  UPDATE employees
+  SET    salary = salary * 1.1
+  WHERE  employee_id = v_empno;
+  
+EXCEPTION
+  WHEN NO_DATA_FOUND THEN
+    DBMS_OUTPUT.PUT_LINE('2005년 이후 입사한 사원입니다.');
+END;
+/
+
+DECLARE
+  e_name EXCEPTION;
+BEGIN
+  DELETE FROM employees
+  WHERE  employee_id = &id;
+
+  IF SQL%NOTFOUND THEN
+    RAISE e_name;
+  END IF;
+EXCEPTION
+  WHEN e_name THEN
+    RAISE_APPLICATION_ERROR (-20999, '해당 사원이 없습니다.');
+  --  DBMS_OUTPUT.PUT_LINE('해당 사원이 없습니다.');
+END;
+/
+
+
+BEGIN
+  DELETE FROM employees
+  WHERE  employee_id = &id;
+
+  IF SQL%NOTFOUND THEN
+    RAISE_APPLICATION_ERROR (-20999, '해당 사원이 없습니다.');
+  END IF;
+END;
+/
+
+DROP TABLE dept PURGE;
+
+CREATE TABLE dept
+AS 
+  SELECT *
+  FROM   departments;
+
+CREATE PROCEDURE add_dept
+IS 
+  v_dept_id dept.department_id%TYPE;
+  v_dept_name dept.department_name%TYPE;
+BEGIN
+  v_dept_id := 280;
+  v_dept_name := 'ST-Curriculum';
+  INSERT INTO dept(department_id, department_name)
+  VALUES (v_dept_id, v_dept_name);
+  DBMS_OUTPUT.PUT_LINE(' Inserted ' || SQL%ROWCOUNT || ' row ');
+END;
+/
+
+BEGIN
+  add_dept;
+END;
+/
+
+execute add_dept;
+
+select * from dept;
+
+CREATE OR REPLACE PROCEDURE raise_salary
+  (p_id      IN employees.employee_id%TYPE,
+   p_percent IN NUMBER)
+IS
+BEGIN
+  UPDATE employees
+  SET    salary = salary * (1 + p_percent/100)
+  WHERE  employee_id = p_id;
+END raise_salary;
+/
+ 
+EXECUTE raise_salary(176, 10);   
+
+CREATE OR REPLACE PROCEDURE query_emp
+  (p_id      IN  employees.employee_id%TYPE,
+   p_name    OUT employees.last_name%TYPE,
+   p_salary  OUT employees.salary%TYPE) 
+IS
+BEGIN
+  SELECT last_name, salary 
+  INTO   p_name, p_salary
+  FROM   employees   
+  WHERE  employee_id = p_id;
+END query_emp;
+/
+
+DECLARE
+  v_emp_name employees.last_name%TYPE;
+  v_emp_sal  employees.salary%TYPE;
+BEGIN
+  query_emp(171, v_emp_name, v_emp_sal);
+  DBMS_OUTPUT.PUT_LINE(v_emp_name || ' earns ' || 
+    TO_CHAR(v_emp_sal, '$999,999.00'));
+END;
+/
