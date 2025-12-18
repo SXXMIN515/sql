@@ -1325,3 +1325,73 @@ EXECUTE :b_phone_no := '0534212460';
 PRINT b_phone_no;
 EXECUTE format_phone (:b_phone_no);
 PRINT b_phone_no;
+
+-- <모든 문제 IN 매개변수 모드 사용>
+
+-- 1.
+-- 주민등록번호를 입력하면 
+-- 다음과 같이 출력되도록 yedam_ju 프로시저를 작성하시오.
+
+-- EXECUTE yedam_ju(9501011667777)
+--   -> 950101-1******
+CREATE OR REPLACE PROCEDURE yedam_ju
+  (jumin IN OUT VARCHAR2) 
+IS
+BEGIN
+  jumin := SUBSTR(jumin,1,6) || '-' || 
+           SUBSTR(jumin,7,1) ||
+           RPAD('*', LENGTH(jumin)-7, '*');
+END yedam_ju;
+/
+
+VARIABLE jumin VARCHAR2(13);
+EXECUTE :jumin := '9501011667777';
+PRINT jumin;
+EXECUTE yedam_ju(:jumin);
+PRINT jumin;
+EXECUTE yedam_ju(:jumin);
+
+-- 2.
+-- 사원번호를 입력할 경우
+-- 삭제하는 TEST_PRO 프로시저를 생성하시오.
+-- 단, 해당사원이 없는 경우 "해당사원이 없습니다." 출력
+-- 예) EXECUTE TEST_PRO(176)
+CREATE OR REPLACE PROCEDURE TEST_PRO
+  (empno IN NUMBER) 
+IS
+BEGIN
+  DELETE FROM employees
+  WHERE  employee_id = empno;
+  
+  IF SQL%NOTFOUND THEN
+    DBMS_OUTPUT.PUT_LINE('해당사원이 없습니다.');
+  END IF;
+END TEST_PRO;
+/
+
+EXECUTE TEST_PRO(176);
+
+-- 3.
+-- 다음과 같이 PL/SQL 블록을 실행할 경우 
+-- 사원번호를 입력할 경우 사원의 이름(last_name)의 첫번째 글자를 제외하고는
+-- '*'가 출력되도록 yedam_emp 프로시저를 생성하시오.
+
+-- 실행) EXECUTE yedam_emp(176)
+-- 실행결과) TAYLOR -> T*****  <- 이름 크기만큼 별표(*) 출력
+CREATE OR REPLACE PROCEDURE yedam_emp
+  (empno IN NUMBER) 
+IS
+  v_lname employees.last_name%TYPE;
+BEGIN
+  SELECT last_name
+  INTO   v_lname
+  FROM   employees
+  WHERE  employee_id = empno;
+  
+  v_lname := SUBSTR(v_lname, 1, 1) || 
+             RPAD('*', LENGTH(v_lname) - 1, '*');
+  DBMS_OUTPUT.PUT_LINE(v_lname);
+END yedam_emp;
+/
+
+EXECUTE yedam_emp(176);
