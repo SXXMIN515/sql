@@ -1395,3 +1395,103 @@ END yedam_emp;
 /
 
 EXECUTE yedam_emp(176);
+
+
+------------ practice ----------------------
+-- 2.
+DECLARE
+  v_deptno   employees.department_id%TYPE;
+  v_jobno    employees.job_id%TYPE;
+  v_sal      employees.salary%TYPE;
+  v_year_sal employees.salary%TYPE;
+BEGIN
+  SELECT department_id, job_id, salary, ROUND((salary+salary*NVL(commission_pct,0))*12)
+  INTO   v_deptno, v_jobno, v_sal, v_year_sal
+  FROM   employees
+  WHERE  employee_id = &id;
+  
+  DBMS_OUTPUT.PUT_LINE('부서번호:' || v_deptno || ', 직무:' || v_jobno || ', 급여:' || v_sal || ', 연봉:' || v_year_sal);
+END;
+/
+
+-- 3.
+DECLARE
+  v_lname employees.last_name%TYPE;
+  v_emp_type VARCHAR2(40);
+BEGIN
+  SELECT last_name,
+         CASE WHEN TO_CHAR(hire_date, 'YYYY/MM/DD') >= '2005/01/01' THEN 'New employee'
+                                                                    ELSE 'Career employee'
+         END
+  INTO   v_lname, v_emp_type
+  FROM   employees 
+  WHERE  employee_id = &id;
+  
+  DBMS_OUTPUT.PUT_LINE(v_lname || '은 ' || v_emp_type);
+END;
+/
+
+-- 4.
+BEGIN
+  FOR i IN 1 .. 9 LOOP
+    IF MOD(i, 2) = 1 THEN
+      FOR j IN 1 .. 9 LOOP
+        DBMS_OUTPUT.PUT_LINE(i || ' x ' || j || ' = ' || i*j);  
+      END LOOP;                     
+    END IF;  
+  END LOOP;                           
+END;
+/
+
+-- 5.
+DECLARE
+  CURSOR c_emp_cursor IS
+    SELECT employee_id, last_name, salary
+    FROM   employees
+    WHERE  department_id = &id;
+    
+  v_emp_record c_emp_cursor%ROWTYPE;   
+BEGIN
+  OPEN c_emp_cursor;
+  
+  LOOP
+    FETCH c_emp_cursor INTO v_emp_record;
+    EXIT WHEN c_emp_cursor%NOTFOUND;
+    DBMS_OUTPUT.PUT_LINE(c_emp_cursor%ROWCOUNT || ' ' || v_emp_record.employee_id || v_emp_record.last_name || v_emp_record.salary);
+  END LOOP;
+  CLOSE c_emp_cursor;
+END;
+/
+
+-- 6.
+CREATE OR REPLACE PROCEDURE sal_update
+  (empno IN employees.employee_id%TYPE,
+   pct   IN NUMBER)
+IS
+  e_emp_not_found EXCEPTION;
+BEGIN
+  UPDATE employees
+  SET    salary = salary + (salary*pct/100)
+  WHERE  employee_id = empno;
+  
+  IF SQL%ROWCOUNT = 0 THEN
+    RAISE e_emp_not_found;
+  END IF;  
+  
+EXCEPTION
+  WHEN e_emp_not_found THEN
+    DBMS_OUTPUT.PUT_LINE('No Search employee!!');    
+END sal_update;
+/
+EXECUTE sal_update(190, 10);
+
+-- 11.
+DECLARE
+  v_star VARCHAR2(10);
+BEGIN
+  FOR i IN 1 .. 8 LOOP
+    v_star := v_star || '*';
+    DBMS_OUTPUT.PUT_LINE(v_star);
+  END LOOP;
+END;
+/
